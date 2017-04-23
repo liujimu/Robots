@@ -5,6 +5,7 @@
 #include "move_body.h"
 #include "swing.h"
 #include "twist_waist.h"
+#include "cross_obstacle.h"
 
 Robots::RobotTypeI rbt;
 
@@ -40,12 +41,12 @@ int main_test(int argc, char *argv[])
 #endif
 
     const double beginEE[]{
-		-0.425,	-0.95,	-0.59,
-		-0.76,	-0.95,	0,
-		-0.675,	-0.95,	0.54,
-		0.425,	-0.95,	-0.59,
-		0.76,	-0.95,	0,
-		0.675,	-0.95,	0.54 };
+       -0.60,   -0.85,   -0.60,
+       -0.80,   -0.85,    0,
+       -0.60,   -0.85,    0.60,
+        0.60,   -0.85,   -0.60,
+        0.80,   -0.85,    0,
+        0.60,   -0.85,    0.60 };
 
     double beginPE[6]{ 0 };
 
@@ -69,14 +70,16 @@ int main_test(int argc, char *argv[])
 
     twParam tw_param;
 
+    coParam co_param;
+
     rbt.SetPeb(beginPE);
     rbt.SetPee(beginEE);
 
-    auto result = rbt.simToAdams("D:\\Lab\\Models\\Adams\\RobotXII\\walk.cmd", Robots::walkGait, wk_param, 50);
+    auto result = rbt.simToAdams("G:\\Models\\Adams\\RobotXIII\\cross_obstacle.cmd", crossObstacleGait, co_param, 50);
 
-    result.saveToTxt("D:\\Lab\\Models\\Adams\\RobotXII\\test");
+    result.saveToTxt("G:\\Models\\Adams\\RobotXIII\\test");
 
-    rbt.saveXml("D:\\Lab\\Models\\Adams\\RobotXII\\test.xml");
+    rbt.saveXml("G:\\Models\\Adams\\RobotXIII\\test.xml");
 
     /*
     Robots::WalkParam wk_param;
