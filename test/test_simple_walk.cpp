@@ -33,7 +33,7 @@ int main_test(int argc, char *argv[])
 {
 
 #ifdef WIN32
-    rbt.loadXml("C:\\Robots\\resource\\Robot_Type_I\\Robot_XII\\Robot_XII.xml");
+    rbt.loadXml("C:\\Robots\\resource\\Robot_Type_I\\Robot_XIII\\Robot_XIII.xml");
     //rbt.loadXml("C:\\Robots\\resource\\Robot_Type_I\\Robot_VIII\\Robot_VIII.xml");
 #endif
 #ifdef UNIX
@@ -75,11 +75,11 @@ int main_test(int argc, char *argv[])
     rbt.SetPeb(beginPE);
     rbt.SetPee(beginEE);
 
-    auto result = rbt.simToAdams("G:\\Models\\Adams\\RobotXIII\\cross_obstacle.cmd", crossObstacleGait, co_param, 50);
+	auto result = rbt.simToAdams("D:\\Lab\\Models\\Adams\\RobotXIII\\cross_obstacle.cmd", crossObstacleGait, co_param, 50);
 
-    result.saveToTxt("G:\\Models\\Adams\\RobotXIII\\test");
+	result.saveToTxt("D:\\Lab\\Models\\Adams\\RobotXIII\\test");
 
-    rbt.saveXml("G:\\Models\\Adams\\RobotXIII\\test.xml");
+	rbt.saveXml("D:\\Lab\\Models\\Adams\\RobotXIII\\test.xml");
 
     /*
     Robots::WalkParam wk_param;
