@@ -33,7 +33,7 @@ int main_test(int argc, char *argv[])
 {
 
 #ifdef WIN32
-    rbt.loadXml("C:\\Robots\\resource\\Robot_Type_I\\Robot_XIII\\Robot_XIII.xml");
+    rbt.loadXml("C:\\Robots\\resource\\Robot_Type_I\\Robot_XIV\\Robot_XIV.xml");
     //rbt.loadXml("C:\\Robots\\resource\\Robot_Type_I\\Robot_VIII\\Robot_VIII.xml");
 #endif
 #ifdef UNIX
@@ -41,12 +41,12 @@ int main_test(int argc, char *argv[])
 #endif
 
     const double beginEE[]{
-       -0.60,   -0.85,   -0.60,
-       -0.80,   -0.85,    0,
-       -0.60,   -0.85,    0.60,
-        0.60,   -0.85,   -0.60,
-        0.80,   -0.85,    0,
-        0.60,   -0.85,    0.60 };
+		-0.30,   -0.50,   -0.52,
+		-0.60,   -0.50,    0,
+		-0.30,   -0.50,    0.52,
+		0.30,   -0.50,   -0.52,
+		0.60,   -0.50,    0,
+		0.30,   -0.50,    0.52 };
 
     double beginPE[6]{ 0 };
 
@@ -55,7 +55,8 @@ int main_test(int argc, char *argv[])
     wk_param.n = 1;
     wk_param.beta = 0;
     wk_param.alpha = 0;
-    wk_param.d = -0.3;
+    wk_param.d = 0.3;
+	wk_param.h = 0.1;
 
     mbParam mb_param;
     mb_param.totalCount = 1000;
@@ -75,11 +76,11 @@ int main_test(int argc, char *argv[])
     rbt.SetPeb(beginPE);
     rbt.SetPee(beginEE);
 
-	auto result = rbt.simToAdams("D:\\Lab\\Models\\Adams\\RobotXIII\\cross_obstacle.cmd", crossObstacleGait, co_param, 50);
+	auto result = rbt.simToAdams("D:\\Lab\\Models\\Adams\\RobotXIV\\walk.cmd", Robots::walkGait, wk_param, 50);
 
-	result.saveToTxt("D:\\Lab\\Models\\Adams\\RobotXIII\\test");
+	result.saveToTxt("D:\\Lab\\Models\\Adams\\RobotXIV\\test");
 
-	rbt.saveXml("D:\\Lab\\Models\\Adams\\RobotXIII\\test.xml");
+	rbt.saveXml("D:\\Lab\\Models\\Adams\\RobotXIV\\test.xml");
 
     /*
     Robots::WalkParam wk_param;
