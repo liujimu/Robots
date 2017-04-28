@@ -16,11 +16,11 @@
             <P2jpe type="matrix">{ 0, 0, 0, PI / 2, PI / 2, -PI / 2 }</P2jpe>
             <P3ipe type="matrix">{ 0, 0, 0, PI / 2, PI / 2, -PI / 2 }</P3ipe>
             <P3jpe type="matrix">{ 0, 0, 0, PI / 2, PI / 2, -PI / 2 }</P3jpe>
-            <S2ipe type="matrix">{ 0, 0.059,  0.034, 0, -PI / 2, 0 }</S2ipe>
+            <S2ipe type="matrix">{ 0, 0.059,  0.037, 0, -PI / 2, 0 }</S2ipe>
             <S2jpe type="matrix">{ 0, 0,      0,     0, -PI / 2, 0 }</S2jpe>
-            <S3ipe type="matrix">{ 0, 0.059, -0.034, 0, -PI / 2, 0 }</S3ipe>
+            <S3ipe type="matrix">{ 0, 0.059, -0.037, 0, -PI / 2, 0 }</S3ipe>
             <S3jpe type="matrix">{ 0, 0,      0,     0, -PI / 2, 0 }</S3jpe>
-            <Sfipe type="matrix">{ 0.065, 0, 0, 0, 0, 0 }</Sfipe>
+            <Sfipe type="matrix">{ 0.142, -0.034, 0, 0, 0, 0 }</Sfipe>
             <Sfjpe type="matrix">{ 0,   0, 0, 0, 0, 0 }</Sfjpe>
             <LFpe type="matrix">{-0.43322 , 0 , -0.19907,   PI/2,  PI* 2/3,   -PI/2-PI*70/180}</LFpe>
             <LMpe type="matrix">{-0.48305 , 0 ,  0,         PI/2,  PI* 3/3,   -PI/2-PI*70/180}</LMpe>
