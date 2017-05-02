@@ -74,8 +74,8 @@ int main_test(int argc, char *argv[])
 	co_param.totalCount = 2000;
 	co_param.n = 5;
 	co_param.d = -0.5;
-	co_param.h = 0.25;
-	co_param.y = 0.12;
+	co_param.h = 0.28;
+	co_param.y = 0.15;
 
     rbt.SetPeb(beginPE);
     rbt.SetPee(beginEE);

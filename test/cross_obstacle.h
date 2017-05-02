@@ -6,13 +6,11 @@
 /*
             <mb default="mb_param">
                 <mb_param type="group">
-                    <totalCount abbreviation="t" type="int" default="2000"/>
-                    <d abbreviation="d" type="double" default="0"/>
-                    <h abbreviation="h" type="double" default="0"/>
-                    <z abbreviation="z" type="double" default="0"/>
-                    <pitch abbreviation="u" type="double" default="0"/>
-                    <yaw abbreviation="v" type="double" default="0"/>
-                    <roll abbreviation="w" type="double" default="0"/>
+                    <totalCount abbreviation="t" type="int" default="3000"/>
+					<n abbreviation="n" type="int" default="4"/>
+					<d abbreviation="d" type="double" default="0.7"/>
+                    <h abbreviation="h" type="double" default="0.25"/>
+                    <y abbreviation="y" type="double" default="0.12"/>
                 </mb_param>
             </mb>
 */
@@ -40,10 +38,12 @@
 struct coParam final:public aris::server::GaitParamBase
 {
     std::int32_t totalCount{ 2000 };
-	std::int32_t n{ 5 };
-	double d{ 0.5 };
-	double h{ 0.28 };
-	double y{ 0.15 };
+	std::int32_t n{ 4 };
+	double d{ -0.7 }; // d>0向右跨，d<0向左跨
+	double h{ 0.25 };
+	double y{ 0.12 };
+	// 0.20m台阶：n=4; d=0.7; h=0.25; y=0.12;
+	// 0.25m台阶：n=5; d=0.5; h=0.28; y=0.15;
 };
 
 auto crossObstacleParse(const std::string &cmd, const std::map<std::string, std::string> &params, aris::core::Msg &msg)->void;
