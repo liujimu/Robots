@@ -41,12 +41,12 @@ int main_test(int argc, char *argv[])
 #endif
 
     const double beginEE[]{
-       -0.60,   -0.85,   -0.60,
-       -0.80,   -0.85,    0,
-       -0.60,   -0.85,    0.60,
-        0.60,   -0.85,   -0.60,
-        0.80,   -0.85,    0,
-        0.60,   -0.85,    0.60 };
+       -0.60,   -0.9,   -0.60,
+       -0.80,   -0.9,    0,
+       -0.60,   -0.9,    0.60,
+        0.60,   -0.9,   -0.60,
+        0.80,   -0.9,    0,
+        0.60,   -0.9,    0.60 };
 
     double beginPE[6]{ 0 };
 
@@ -71,6 +71,11 @@ int main_test(int argc, char *argv[])
     twParam tw_param;
 
     coParam co_param;
+	co_param.totalCount = 2000;
+	co_param.n = 5;
+	co_param.d = -0.5;
+	co_param.h = 0.25;
+	co_param.y = 0.12;
 
     rbt.SetPeb(beginPE);
     rbt.SetPee(beginEE);

@@ -40,6 +40,10 @@
 struct coParam final:public aris::server::GaitParamBase
 {
     std::int32_t totalCount{ 2000 };
+	std::int32_t n{ 5 };
+	double d{ 0.5 };
+	double h{ 0.28 };
+	double y{ 0.15 };
 };
 
 auto crossObstacleParse(const std::string &cmd, const std::map<std::string, std::string> &params, aris::core::Msg &msg)->void;

@@ -20,7 +20,23 @@ auto crossObstacleParse(const std::string &cmd, const std::map<std::string, std:
         {
             param.totalCount = std::stoi(i.second);
         }
-    }
+		if (i.first == "n")
+		{
+			param.n = std::stoi(i.second);
+		}
+		if (i.first == "d")
+		{
+			param.d = std::stod(i.second);
+		}
+		if (i.first == "h")
+		{
+			param.h = std::stod(i.second);
+		}
+		if (i.first == "y")
+		{
+			param.y = std::stod(i.second);
+		}
+	}
 
     msg.copyStruct(param);
 }
@@ -47,26 +63,41 @@ auto crossObstacleGait(aris::dynamic::Model &model, const aris::dynamic::PlanPar
     double h{ 0 };
     if ((param.count / param.totalCount) == 0)//第一步
     {
-        d = -0.2;
+		d = param.d / std::fabs(param.d) * 0.2;
 		h = 0.05;
         targetPeb[0] = d / 2;
-        targetPeb[1] = 0.1;
+        targetPeb[1] = param.y;
     }
-    else if ((param.count / param.totalCount) == 7)//最后一步
+    else if ((param.count / param.totalCount) == (2 * param.n - 1))//最后一步
     {
-        d = -0.2;
+        d = param.d / std::fabs(param.d) * 0.2;
 		h = 0.05;
         targetPeb[0] = d / 2;
-        targetPeb[1] = -0.1;
+		targetPeb[1] = -param.y;
     }
     else
     {
-        d = -0.7;
-		h = 0.25;
+		if ((param.count / param.totalCount) < 3 || (param.count / param.totalCount) > (2 * param.n - 4))
+		{
+			d = param.d;
+		}
+		else
+		{
+			d = param.d / std::fabs(param.d) * (1.4 - std::fabs(param.d)) / (param.n - 3);
+		}
+		h = param.h;
         targetPeb[0] = d / 2;
     }
 
-    const int leg_begin_id = (param.count / param.totalCount) % 2 == 1 ? 3 : 0;
+	int leg_begin_id;
+	if (param.d > 0)
+	{
+		leg_begin_id = (param.count / param.totalCount) % 2 == 0 ? 3 : 0;
+	}
+	else
+	{
+		leg_begin_id = (param.count / param.totalCount) % 2 == 1 ? 3 : 0;
+	}
 	int period_count = param.count%param.totalCount;
 	const double s = -0.5 * cos(PI * (period_count + 1) / param.totalCount) + 0.5; //s从0到1. 
 
@@ -86,5 +117,5 @@ auto crossObstacleGait(aris::dynamic::Model &model, const aris::dynamic::PlanPar
     robot.SetPeb(Peb, beginMak);
     robot.SetPee(Pee, beginMak);
 
-    return param.totalCount * 8 - param.count - 1;
+	return 2 * param.n * param.totalCount - param.count - 1;
 }
