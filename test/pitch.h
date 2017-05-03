@@ -55,7 +55,8 @@ struct pitchParam final :public aris::server::GaitParamBase
     double y{ 0 };
     double z{ 0 };
 	double a{ 25 * PI / 180 };
-    double recoverPee[18]
+    double h{ 0.05 };
+    double prePee[18]
     {  -0.5, -0.9, -0.6,
        -0.8, -0.9,  0,
        -0.9, -0.9,  0.6,

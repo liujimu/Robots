@@ -45,6 +45,8 @@ auto pitchGait(aris::dynamic::Model &model, const aris::dynamic::PlanParamBase &
     static aris::dynamic::FloatMarker beginMak{ robot.ground() };
     static double beginPee[18];
     static double lastPeb[6];
+    static bool isWalking{ false };
+    static int beginCount{ 0 };
 
     if (param.count == 0)
     {
@@ -53,26 +55,58 @@ auto pitchGait(aris::dynamic::Model &model, const aris::dynamic::PlanParamBase &
         robot.GetPee(beginPee, beginMak);
     }
 
-    static bool isWalking{ false };
-    static int beginCount{ 0 };
-
     double Peb[6], Pee[18];
-    std::fill(Peb, Peb + 6, 0);
-    std::copy(beginPee, beginPee + 18, Pee);
+    
+    if (param.count < 2 * param.totalCount)
+    {
+        std::fill(Peb, Peb + 6, 0);
+        std::copy(beginPee, beginPee + 18, Pee);
 
-    const double s = -0.5 * cos(PI * (param.count + 1) / param.totalCount) + 0.5;//s 从0到1.
+        int period_count = param.count%param.totalCount;
+        const double s = -0.5 * cos(PI * (period_count + 1) / param.totalCount) + 0.5; //s从0到1. 
+        const int leg_begin_id = (param.count / param.totalCount) % 2 == 0 ? 3 : 0;
+        for (int i = leg_begin_id; i < 18; i += 6)
+        {
+            Pee[i] = beginPee[i] * (1 - s) + param.prePee[i] * s; //x
+            Pee[i + 2] = beginPee[i + 2] * (1 - s) + param.prePee[i + 2] * s; //y
+            Pee[i + 1] += param.h * std::sin( PI * s ); //z
+        }
+    }
+    else if (param.count < 3 * param.totalCount)
+    {
+        std::copy(param.prePee, param.prePee + 18, Pee);
+
+        const double s = -0.5 * cos(PI * (param.count - 2 * param.totalCount + 1) / param.totalCount) + 0.5;//s 从0到1.
+        Peb[0] = 0;
+        Peb[1] = lastPeb[1] * (1 - s) + param.y * s;
+        Peb[2] = lastPeb[2] * (1 - s) + param.z * s;
+        Peb[3] = 0;
+        Peb[4] = lastPeb[4] * (1 - s) + param.a * s;
+        Peb[5] = 0;
+    }
+    else
+    {
+        if (PitchState::getState().isStopping())
+        {
+
+        }
+
+    }
+
+
+    const double s = -0.5 * cos(PI * (param.count - beginCount + 1) / param.totalCount) + 0.5;//s 从0到1.
 
 	Peb[0] = 0;
-	Peb[1] = param.y * s;
-	Peb[2] = param.z * s;
+    Peb[1] = lastPeb[1] * (1 - s) + param.y * s;
+	Peb[2] = lastPeb[2] * (1 - s) + param.z * s;
 	Peb[3] = 0;
-	Peb[4] = param.a * s;
+	Peb[4] = lastPeb[4] * (1 - s) + param.a * s;
 	Peb[5] = 0;
 
 	robot.SetPeb(Peb, beginMak);
 	robot.SetPee(Pee, beginMak);
 
-    if (PitchState::getState().isStopping() && (!isWalking))
+    if (PitchState::getState().isStopping() && (param.count - beginCount + 1 == 3 * param.totalCount))
     {
         return 0;
     }

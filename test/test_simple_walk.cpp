@@ -41,21 +41,21 @@ int main_test(int argc, char *argv[])
     rbt.loadXml("/usr/Robots/resource/Robot_Type_I/Robot_III/Robot_III.xml");
 #endif
 
-    const double beginEE[]{
-       -0.5,   -0.9,   -0.60,
-       -0.8,   -0.9,    0,
-       -0.9,   -0.9,    0.60,
-        0.5,   -0.9,   -0.60,
-        0.8,   -0.9,    0,
-        0.9,   -0.9,    0.60 };
+    //const double beginEE[]{
+    //   -0.5,   -0.9,   -0.60,
+    //   -0.8,   -0.9,    0,
+    //   -0.9,   -0.9,    0.60,
+    //    0.5,   -0.9,   -0.60,
+    //    0.8,   -0.9,    0,
+    //    0.9,   -0.9,    0.60 };
 
-	//const double beginEE[]{
-	//	-0.60,   -0.9,   -0.60,
-	//	-0.80,   -0.9,    0,
-	//	-0.60,   -0.9,    0.60,
-	//	0.60,   -0.9,   -0.60,
-	//	0.80,   -0.9,    0,
-	//	0.60,   -0.9,    0.60 };
+	const double beginEE[]{
+		-0.60,   -0.9,   -0.60,
+		-0.80,   -0.9,    0,
+		-0.60,   -0.9,    0.60,
+		0.60,   -0.9,   -0.60,
+		0.80,   -0.9,    0,
+		0.60,   -0.9,    0.60 };
 
     double beginPE[6]{ 0 };
 
@@ -91,7 +91,7 @@ int main_test(int argc, char *argv[])
     rbt.SetPeb(beginPE);
     rbt.SetPee(beginEE);
 
-	auto result = rbt.simToAdams("D:\\Lab\\Models\\Adams\\RobotXIII\\cross_obstacle.cmd", pitchGait, pitch_param, 50);
+	auto result = rbt.simToAdams("D:\\Lab\\Models\\Adams\\RobotXIII\\test.cmd", twistWaistGait, tw_param, 50);
 
 	result.saveToTxt("D:\\Lab\\Models\\Adams\\RobotXIII\\test");
 
