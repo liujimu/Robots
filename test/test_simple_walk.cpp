@@ -6,6 +6,7 @@
 #include "swing.h"
 #include "twist_waist.h"
 #include "cross_obstacle.h"
+#include "pitch.h"
 
 Robots::RobotTypeI rbt;
 
@@ -41,12 +42,20 @@ int main_test(int argc, char *argv[])
 #endif
 
     const double beginEE[]{
-       -0.60,   -0.9,   -0.60,
-       -0.80,   -0.9,    0,
-       -0.60,   -0.9,    0.60,
-        0.60,   -0.9,   -0.60,
-        0.80,   -0.9,    0,
-        0.60,   -0.9,    0.60 };
+       -0.5,   -0.9,   -0.60,
+       -0.8,   -0.9,    0,
+       -0.9,   -0.9,    0.60,
+        0.5,   -0.9,   -0.60,
+        0.8,   -0.9,    0,
+        0.9,   -0.9,    0.60 };
+
+	//const double beginEE[]{
+	//	-0.60,   -0.9,   -0.60,
+	//	-0.80,   -0.9,    0,
+	//	-0.60,   -0.9,    0.60,
+	//	0.60,   -0.9,   -0.60,
+	//	0.80,   -0.9,    0,
+	//	0.60,   -0.9,    0.60 };
 
     double beginPE[6]{ 0 };
 
@@ -77,10 +86,12 @@ int main_test(int argc, char *argv[])
 	co_param.h = 0.28;
 	co_param.y = 0.15;
 
+	pitchParam pitch_param;
+
     rbt.SetPeb(beginPE);
     rbt.SetPee(beginEE);
 
-	auto result = rbt.simToAdams("D:\\Lab\\Models\\Adams\\RobotXIII\\cross_obstacle.cmd", crossObstacleGait, co_param, 50);
+	auto result = rbt.simToAdams("D:\\Lab\\Models\\Adams\\RobotXIII\\cross_obstacle.cmd", pitchGait, pitch_param, 50);
 
 	result.saveToTxt("D:\\Lab\\Models\\Adams\\RobotXIII\\test");
 
