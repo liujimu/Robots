@@ -44,6 +44,14 @@ auto sayHelloParse(const std::string &cmd, const std::map<std::string, std::stri
         {
             param.helloTimes = std::stoi(i.second);
         }
+        else if (i.first == "forward")
+        {
+            param.isForward = true;
+        }
+        else if (i.first == "backward")
+        {
+            param.isForward = false;
+        }
     }
 
     msg.copyStruct(param);
@@ -57,9 +65,6 @@ auto sayHelloGait(aris::dynamic::Model &model, const aris::dynamic::PlanParamBas
     //初始化
     static aris::dynamic::FloatMarker beginMak{ robot.ground() };
     static double beginPee[18];
-    int totalCount = param.totalCount;
-    int n = param.helloTimes;
-
     if (param.count == 0)
     {
         beginMak.setPrtPm(*robot.body().pm());
@@ -67,6 +72,9 @@ auto sayHelloGait(aris::dynamic::Model &model, const aris::dynamic::PlanParamBas
         robot.GetPee(beginPee, beginMak);
     }
 
+    int totalCount = param.totalCount;
+    int n = param.helloTimes;
+    const double sign = param.isForward ? 1 : -1;
     double footDist = std::sqrt(std::pow(beginPee[2], 2) + std::pow(beginPee[1] - param.bodyUp, 2));
     double theta = std::atan2(std::fabs(beginPee[2]), std::fabs(beginPee[1]) + param.bodyUp);
 
@@ -76,19 +84,20 @@ auto sayHelloGait(aris::dynamic::Model &model, const aris::dynamic::PlanParamBas
     double targetPeb[6];
     std::fill(targetPeb, targetPeb + 6, 0);
     targetPeb[1] = param.bodyUp;
-    targetPeb[4] = param.bodyPitch;
+    targetPeb[4] = sign * param.bodyPitch;
 
-    double state1Pee[18];
+    double state1Pee[18]; //调整中间腿
     std::copy(beginPee, beginPee + 18, state1Pee);
-    state1Pee[5] -= param.stepLength;
-    state1Pee[14] -= param.stepLength;
+    state1Pee[5] -= sign * param.stepLength;
+    state1Pee[14] -= sign * param.stepLength;
 
-    double state2Pee[18];
+    double state2Pee[18]; //举起前（或后）腿
     std::copy(state1Pee, state1Pee + 18, state2Pee);
-    for (int i = 0; i < 2; ++i)
+    for (int i = 0; i < 6; i += 3)
     {
-        state2Pee[9 * i + 1] = param.bodyUp - footDist * std::cos(2 * param.bodyPitch + theta);
-        state2Pee[9 * i + 2] = -footDist * std::sin(2 * param.bodyPitch + theta);
+        int leg_id = param.isForward ? i : (5 - i);
+        state2Pee[3 * leg_id + 1] = param.bodyUp - footDist * std::cos(sign * (2 * param.bodyPitch + theta));
+        state2Pee[3 * leg_id + 2] = -footDist * std::sin(sign * (2 * param.bodyPitch + theta));
     }
 
     //第一步：迈中间腿
@@ -96,10 +105,11 @@ auto sayHelloGait(aris::dynamic::Model &model, const aris::dynamic::PlanParamBas
     {
         const double s = -PI / 2 * std::cos(PI * (param.count + 1) / param.totalCount) + PI / 2; //s从0到PI.
         std::copy(beginPee, beginPee + 18, Pee);
-        for (int i = 0; i < 2; ++i)
+        for (int i = 1; i < 6; i += 3)
         {
-            Pee[9 * i + 4] += param.stepHeight * std::sin(s);
-            Pee[9 * i + 5] += param.stepLength / 2 * (std::cos(s) - 1);
+            int leg_id = param.isForward ? i : (5 - i);
+            Pee[3 * leg_id + 1] += param.stepHeight * std::sin(s);
+            Pee[3 * leg_id + 2] -= sign * param.stepLength * (1 - std::cos(s)) / 2;
         }
     }
     //第二步：抬头，抬前腿
@@ -111,10 +121,11 @@ auto sayHelloGait(aris::dynamic::Model &model, const aris::dynamic::PlanParamBas
             Peb[i] = targetPeb[i] * s;
         }
         std::copy(state1Pee, state1Pee + 18, Pee);
-        for (int i = 0; i < 2; ++i)
+        for (int i = 0; i < 6; i += 3)
         {
-            Pee[9 * i + 1] = state1Pee[9 * i + 1] * (1 - s) + state2Pee[9 * i + 1] * s;
-            Pee[9 * i + 2] = state1Pee[9 * i + 2] * (1 - s) + state2Pee[9 * i + 2] * s;
+            int leg_id = param.isForward ? i : (5 - i);
+            Pee[3 * leg_id + 1] = state1Pee[3 * leg_id + 1] * (1 - s) + state2Pee[3 * leg_id + 1] * s;
+            Pee[3 * leg_id + 2] = state1Pee[3 * leg_id + 2] * (1 - s) + state2Pee[3 * leg_id + 2] * s;
         }
     }
     //第三步：晃前腿打招呼
@@ -123,10 +134,12 @@ auto sayHelloGait(aris::dynamic::Model &model, const aris::dynamic::PlanParamBas
         const double s = 2 * PI * (param.count + 1 - 2 * param.totalCount) / param.totalCount; //s从0到2*n*PI.
         std::copy(targetPeb, targetPeb + 6, Peb);
         std::copy(state2Pee, state2Pee + 18, Pee);
-        Pee[1] = state2Pee[1] + param.helloAmplitude * std::sin(s) * std::cos(theta);
-        Pee[2] = state2Pee[2] - param.helloAmplitude * std::sin(s) * std::sin(theta);
-        Pee[10] = state2Pee[10] - param.helloAmplitude * std::sin(s) * std::cos(theta);
-        Pee[11] = state2Pee[11] + param.helloAmplitude * std::sin(s) * std::sin(theta);
+        for (int i = 0; i < 6; i += 3)
+        {
+            int leg_id = param.isForward ? i : (5 - i);
+            Pee[3 * leg_id + 1] = state2Pee[3 * leg_id + 1] - std::pow(-1, leg_id) * param.helloAmplitude * std::sin(s) * std::cos(theta);
+            Pee[3 * leg_id + 2] = state2Pee[3 * leg_id + 2] - std::pow(-1, leg_id) * param.helloAmplitude * std::sin(s) * std::sin(theta);
+        }
     }
     //第四步：收前腿，恢复身体姿态
     else if (param.count < (3 + n) * param.totalCount)
@@ -137,10 +150,11 @@ auto sayHelloGait(aris::dynamic::Model &model, const aris::dynamic::PlanParamBas
             Peb[i] = targetPeb[i] * (1 - s);
         }
         std::copy(state2Pee, state2Pee + 18, Pee);
-        for (int i = 0; i < 2; ++i)
+        for (int i = 0; i < 6; i += 3)
         {
-            Pee[9 * i + 1] = state2Pee[9 * i + 1] * (1 - s) + state1Pee[9 * i + 1] * s;
-            Pee[9 * i + 2] = state2Pee[9 * i + 2] * (1 - s) + state1Pee[9 * i + 2] * s;
+            int leg_id = param.isForward ? i : (5 - i);
+            Pee[3 * leg_id + 1] = state2Pee[3 * leg_id + 1] * (1 - s) + state1Pee[3 * leg_id + 1] * s;
+            Pee[3 * leg_id + 2] = state2Pee[3 * leg_id + 2] * (1 - s) + state1Pee[3 * leg_id + 2] * s;
         }
     }
     //第五步：收中间腿
@@ -148,10 +162,11 @@ auto sayHelloGait(aris::dynamic::Model &model, const aris::dynamic::PlanParamBas
     {
         const double s = -PI / 2 * std::cos(PI * (param.count + 1 - (3 + n) * param.totalCount) / param.totalCount) + PI / 2; //s从0到PI.
         std::copy(state1Pee, state1Pee + 18, Pee);
-        for (int i = 0; i < 2; ++i)
+        for (int i = 1; i < 6; i += 3)
         {
-            Pee[9 * i + 4] += param.stepHeight * std::sin(s);
-            Pee[9 * i + 5] -= param.stepLength / 2 * (std::cos(s) - 1);
+            int leg_id = param.isForward ? i : (5 - i);
+            Pee[3 * leg_id + 1] += param.stepHeight * std::sin(s);
+            Pee[3 * leg_id + 2] += sign * param.stepLength * (1 - std::cos(s)) / 2;
         }
     }
 
