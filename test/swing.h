@@ -11,7 +11,7 @@
                     <zAngle abbreviation="z" type="double" default="0"/>
                     <yAngle abbreviation="y" type="double" default="0"/>
                     <rDistance abbreviation="r" type="double" default="0.6"/>
-                    <yDistance abbreviation="d" type="double" default="0.05"/>
+                    <yDistance abbreviation="d" type="double" default="-0.05"/>
                 </sw_param>
             </sw>
 */
@@ -38,11 +38,11 @@
 struct swParam final :public aris::server::GaitParamBase
 {
     std::int32_t totalCount{ 8000 };
-    double rDistance{ 0 };
-    double xAngle{ 0 };
-    double zAngle{ 0 };
-    double yDistance{ 0 };
-    double yAngle{ 0 };
+    double rDistance{ 0.6 };
+    double xAngle{ 0 }; //最大20度
+    double zAngle{ 0 }; //最大15度
+    double yDistance{ -0.05 };
+    double yAngle{ 0 }; //最大30度
 };
 
 auto swingParse(const std::string &cmd, const std::map<std::string, std::string> &params, aris::core::Msg &msg)->void;

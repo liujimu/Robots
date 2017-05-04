@@ -7,6 +7,7 @@
 #include "twist_waist.h"
 #include "cross_obstacle.h"
 #include "pitch.h"
+#include "say_hello.h"
 
 Robots::RobotTypeI rbt;
 
@@ -73,9 +74,9 @@ int main_test(int argc, char *argv[])
 
     swParam sw_param;
     sw_param.totalCount = 4000;
-    sw_param.yAngle = PI * 15 / 180;
-    sw_param.rDistance = 0.5;
-    sw_param.yDistance = 0.05;
+    sw_param.xAngle = PI * 20 / 180;
+    sw_param.rDistance = 0.6;
+    sw_param.yDistance = -0.05;
 
     twParam tw_param;
 
@@ -88,10 +89,12 @@ int main_test(int argc, char *argv[])
 
 	pitchParam pitch_param;
 
+    shParam sh_param;
+
     rbt.SetPeb(beginPE);
     rbt.SetPee(beginEE);
 
-	auto result = rbt.simToAdams("D:\\Lab\\Models\\Adams\\RobotXIII\\test.cmd", twistWaistGait, tw_param, 50);
+	auto result = rbt.simToAdams("D:\\Lab\\Models\\Adams\\RobotXIII\\test.cmd", sayHelloGait, sh_param, 50);
 
 	result.saveToTxt("D:\\Lab\\Models\\Adams\\RobotXIII\\test");
 
