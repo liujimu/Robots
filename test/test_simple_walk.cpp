@@ -92,10 +92,9 @@ int main_test(int argc, char *argv[])
 	rbt.SetWa(beginWa);
 	rbt.SetPee(beginEE);
 	
-	//auto result = rbt.simToAdams("G:\\Hexapod\\Robots_LJM_build\\simAdams\\test.cmd", Robots::Gait::walkGait, wk_param, 50);
-	auto result = rbt.simToAdams("G:\\Hexapod\\Robots_LJM_build\\simAdams\\msl_test.cmd", moveSingleLegGait, msl_param, 50);
+	auto result = rbt.simToAdams("G:\\Models\\Adams\\RobotIX", Robots::Gait::walkGait, wk_param, 50);
 
-	result.saveToTxt("G:\\Hexapod\\Robots_LJM_build\\simAdams\\test");
+	result.saveToTxt("G:\\Models\\Adams\\RobotIX\\test");
 
 	//rbt.saveXml("G:\\Hexapod\\Robots_LJM_build\\simAdams\\test.xml");
 	
