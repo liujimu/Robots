@@ -90,7 +90,7 @@ int main_test(int argc, char *argv[])
 
     csParam cs_param;
     cs_param.totalCount = 1500;
-    cs_param.stair_height = 0.196;
+    cs_param.stair_length = 0.192;
     cs_param.n = 7;
 
 	rbt.SetPeb(beginPE);

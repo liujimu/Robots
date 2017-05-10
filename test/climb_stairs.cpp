@@ -28,6 +28,10 @@ auto climbStairsParse(const std::string &cmd, const std::map<std::string, std::s
 		{
 			param.stair_height = std::stod(i.second);
 		}
+        else if (i.first == "body_offset")
+        {
+            param.body_offset = std::stod(i.second);
+        }
         if (i.first == "n")
         {
             param.n = std::stoi(i.second);
@@ -76,13 +80,20 @@ auto climbStairsGait(aris::dynamic::Model &model, const aris::dynamic::PlanParam
     std::copy(h, h + 3, h + 3);
     if (period_n < 8)
     {
-        hb = param.stair_height / 2;
+        hb = param.stair_height / 4;
     }
     else
     {
-        hb = param.stair_height;
+        hb = param.stair_height / 2;
     }
-    db = param.stair_length;
+    if (period_n < 4)
+    {
+        db = (foot_distance - param.body_offset) / 4;
+    }
+    else
+    {
+        db = param.stair_length / 2;
+    }
 
     double Wa{ 0 };
     double Peb[6], Pee[18];
@@ -92,15 +103,15 @@ auto climbStairsGait(aris::dynamic::Model &model, const aris::dynamic::PlanParam
     for (int i = leg_begin_id; i < 6; i += 2)
     {
         Pee[3 * i + 1] += h[i] * (1 - std::cos(s)) / 2 + param.stair_height / 2 * std::sin(s);
-        Pee[3 * i + 2] -= d[i] * (1 - std::cos(s)) / 2;
+        Pee[3 * i + 2] -= d[i] * (1 - std::cos(s)) / 2 - 0.01 * std::sin(s);
     }
     //规划身体位姿
-    Peb[1] += hb * (1 - std::cos(s)) / 4;
-    Peb[2] -= db * (1 - std::cos(s)) / 4;
+    Peb[1] += hb * (1 - std::cos(s)) / 2;
+    Peb[2] -= db * (1 - std::cos(s)) / 2;
     if (period_n < 8)
     {
-        Wa = PI / 32 * (period_n + s / PI);
-        Peb[4] = PI / 180 * 1.25 * (period_n + s / PI);
+        Wa = PI / 32 * (period_n + (1 - std::cos(s)) / 2);
+        Peb[4] = PI / 180 * 1.25 * (period_n + (1 - std::cos(s)) / 2);
     }
     else
     {
@@ -120,8 +131,8 @@ auto climbStairsGait(aris::dynamic::Model &model, const aris::dynamic::PlanParam
             beginPee[3 * i + 1] += h[i];
             beginPee[3 * i + 2] -= d[i];
         }
-        beginPeb[1] += hb / 2;
-        beginPeb[2] -= db / 2;
+        beginPeb[1] += hb;
+        beginPeb[2] -= db;
     }
 
     return 2 * param.n * param.totalCount - param.count - 1;

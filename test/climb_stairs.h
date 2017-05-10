@@ -40,6 +40,7 @@ struct csParam final :public aris::server::GaitParamBase
 	std::int32_t totalCount{ 2000 };
 	double stair_length{ 0.2 };
 	double stair_height{ 0.18 };
+    double body_offset{ 0.1 };
 	int n{ 6 };
 };
 
