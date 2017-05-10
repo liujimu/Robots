@@ -308,7 +308,7 @@ auto forceCreepingGait(aris::dynamic::Model & model, const aris::dynamic::PlanPa
 	}
 
 	//单步规划
-	double period_count = param.count - beginCount;
+	int period_count = param.count - beginCount;
 	if (period_count == 0)
 	{
 		beginMak.setPrtPm(*robot.body().pm());

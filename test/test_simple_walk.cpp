@@ -6,6 +6,7 @@
 #include "creeping_gait.h"
 #include "cross_chasm.h"
 #include "move_single_leg.h"
+#include "climb_stairs.h"
 
 Robots::RobotTypeIII rbt;
 
@@ -33,20 +34,19 @@ int main_test(int argc, char *argv[])
 {
 	
 #ifdef WIN32
-	rbt.loadXml("G:\\Hexapod\\Robots_LJM\\src\\Robot_Type_III\\resource\\Robot_IX\\Robot_IX.xml");
-	//rbt.loadXml("C:\\Robots\\resource\\Robot_Type_I\\Robot_VIII\\Robot_VIII.xml");
+	rbt.loadXml("C:\\Robots\\resource\\Robot_Type_III\\Robot_IX\\Robot_IX.xml");
 #endif
 #ifdef UNIX
 	rbt.loadXml("/usr/Robots/resource/Robot_Type_I/Robot_III/Robot_III.xml");
 #endif
 	
 	double beginEE[]{
-		-0.3, -0.95, -0.65,
-		-0.45, -0.95, 0,
-		-0.3, -0.95, 0.65,
-		0.3, -0.95, -0.65,
-		0.45, -0.95, 0,
-		0.3, -0.95, 0.65 };
+		-0.3, -0.91, -0.55,
+		-0.45, -0.91, 0,
+		-0.3, -0.91, 0.55,
+		0.3, -0.91, -0.55,
+		0.45, -0.91, 0,
+		0.3, -0.91, 0.55 };
 
 	double beginPE[6]{ 0 };
 	double beginWa{ 0 };
@@ -88,13 +88,18 @@ int main_test(int argc, char *argv[])
 	msl_param.isAbsolute = false;
 	msl_param.totalCount = 2000;
 
+    csParam cs_param;
+    cs_param.totalCount = 1500;
+    cs_param.stair_height = 0.196;
+    cs_param.n = 7;
+
 	rbt.SetPeb(beginPE);
 	rbt.SetWa(beginWa);
 	rbt.SetPee(beginEE);
 	
-	auto result = rbt.simToAdams("G:\\Models\\Adams\\RobotIX", Robots::Gait::walkGait, wk_param, 50);
+	auto result = rbt.simToAdams("D:\\Lab\\Models\\Adams\\RobotIX\\test.cmd", climbStairsGait, cs_param, 20);
 
-	result.saveToTxt("G:\\Models\\Adams\\RobotIX\\test");
+	result.saveToTxt("D:\\Lab\\Models\\Adams\\RobotIX\\test");
 
 	//rbt.saveXml("G:\\Hexapod\\Robots_LJM_build\\simAdams\\test.xml");
 	

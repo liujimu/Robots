@@ -28,7 +28,11 @@ auto climbStairsParse(const std::string &cmd, const std::map<std::string, std::s
 		{
 			param.stair_height = std::stod(i.second);
 		}
-	}
+        if (i.first == "n")
+        {
+            param.n = std::stoi(i.second);
+        }
+    }
 
 	msg.copyStruct(param);
 }
@@ -50,6 +54,8 @@ auto climbStairsGait(aris::dynamic::Model &model, const aris::dynamic::PlanParam
         beginMak.update();
         robot.GetPee(beginPee, beginMak);
         robot.GetWa(beginWa);
+        foot_distance = std::fabs(beginPee[5] - beginPee[2]);
+        std::fill_n(beginPeb, 6, 0);
     }
 
     const int period_count = param.count%param.totalCount;
@@ -63,49 +69,60 @@ auto climbStairsGait(aris::dynamic::Model &model, const aris::dynamic::PlanParam
     double db;
     for (int i = 0; i < 3; ++i)
     {
-        d[i]=i<=period_n/4?param.stair_length:
+        d[i] = i > period_n / 4 ? foot_distance / 2 : param.stair_length;
+        h[i] = i > period_n / 4 ? 0 : param.stair_height;
     }
-    if (period_n < 2)
+    std::copy(d, d + 3, d + 3);
+    std::copy(h, h + 3, h + 3);
+    if (period_n < 8)
     {
-        d[0] = param.stair_length;
-        d[1] = 0.5;
-        d[2] = 0.5;
-        std::copy(d, d + 3, d + 3);
-        h[0] = param.stair_height;
-        h[1] = 0;
-        h[2] = 0;
-        std::copy(h, h + 3, h + 3);
+        hb = param.stair_height / 2;
     }
-    else if (period_n < 4)
+    else
     {
-        d[0] = param.stair_length;
-        d[1] = param.stair_length;
-        d[2] = 0.5;
-        std::copy(d, d + 3, d + 3);
-        h[0] = param.stair_height;
-        h[1] = 0;
-        h[2] = 0;
-        std::copy(h, h + 3, h + 3);
+        hb = param.stair_height;
     }
+    db = param.stair_length;
 
-    double Peb[6], Pee[18];
-    std::fill(Peb, Peb + 6, 0);
-    std::copy(beginPee, beginPee + 18, Pee);
     double Wa{ 0 };
+    double Peb[6], Pee[18];
+    std::copy(beginPeb, beginPeb + 6, Peb);
+    std::copy(beginPee, beginPee + 18, Pee);
     //规划腿
     for (int i = leg_begin_id; i < 6; i += 2)
     {
-        Pee[3 * i + 1] = beginPee[3 * i + 1] + h[i] * (1 - std::cos(s)) / 2 + param.stair_height / 2 * std::sin(s);
-        Pee[3 * i + 2] = beginPee[3 * i + 2] - d[i] * (1 - std::cos(s)) / 2;
+        Pee[3 * i + 1] += h[i] * (1 - std::cos(s)) / 2 + param.stair_height / 2 * std::sin(s);
+        Pee[3 * i + 2] -= d[i] * (1 - std::cos(s)) / 2;
     }
     //规划身体位姿
-    Peb[1] = beginPeb[1] + hb * (1 - std::cos(s)) / 4;
-    Peb[2] = beginPeb[2] + db * (1 - std::cos(s)) / 4;
-
+    Peb[1] += hb * (1 - std::cos(s)) / 4;
+    Peb[2] -= db * (1 - std::cos(s)) / 4;
+    if (period_n < 8)
+    {
+        Wa = PI / 32 * (period_n + s / PI);
+        Peb[4] = PI / 180 * 1.25 * (period_n + s / PI);
+    }
+    else
+    {
+        Wa = PI / 4;
+        Peb[4] = PI / 180 * 10;
+    }
 
     robot.SetPeb(Peb, beginMak);
     robot.SetWa(Wa);
     robot.SetPee(Pee, beginMak);
+
+    //更新beginPeb和beginPee
+    if ((param.count + 1) % param.totalCount == 0)
+    {
+        for (int i = leg_begin_id; i < 6; i += 2)
+        {
+            beginPee[3 * i + 1] += h[i];
+            beginPee[3 * i + 2] -= d[i];
+        }
+        beginPeb[1] += hb / 2;
+        beginPeb[2] -= db / 2;
+    }
 
     return 2 * param.n * param.totalCount - param.count - 1;
 }
