@@ -33,7 +33,7 @@ int main_test(int argc, char *argv[])
 {
 
 #ifdef WIN32
-    rbt.loadXml("C:\\Robots\\resource\\Robot_Type_I\\Robot_XIV\\Robot_XIV.xml");
+    rbt.loadXml("C:\\Robots\\resource\\Robot_Type_I\\Robot_XV\\Robot_XV.xml");
     //rbt.loadXml("C:\\Robots\\resource\\Robot_Type_I\\Robot_VIII\\Robot_VIII.xml");
 #endif
 #ifdef UNIX
@@ -41,22 +41,22 @@ int main_test(int argc, char *argv[])
 #endif
 
     const double beginEE[]{
-		-0.30,   -0.50,   -0.52,
-		-0.60,   -0.50,    0,
-		-0.30,   -0.50,    0.52,
-		0.30,   -0.50,   -0.52,
-		0.60,   -0.50,    0,
-		0.30,   -0.50,    0.52 };
+		-0.30,   -0.59,   -0.52,
+		-0.60,   -0.59,    0,
+		-0.30,   -0.59,    0.52,
+		0.30,   -0.59,   -0.52,
+		0.60,   -0.59,    0,
+		0.30,   -0.59,    0.52 };
 
     double beginPE[6]{ 0 };
 
     Robots::WalkParam wk_param;
-    wk_param.totalCount = 2000;
-    wk_param.n = 1;
+    wk_param.totalCount = 1000;
+    wk_param.n = 2;
     wk_param.beta = 0;
     wk_param.alpha = 0;
-    wk_param.d = 0.3;
-	wk_param.h = 0.1;
+    wk_param.d = 0.5;
+	wk_param.h = 0.05;
 
     mbParam mb_param;
     mb_param.totalCount = 1000;
@@ -70,17 +70,23 @@ int main_test(int argc, char *argv[])
     sw_param.yDistance = 0.05;
 
     twParam tw_param;
+    tw_param.totalCount = 6000;
+    tw_param.height = 0;
+    tw_param.diameter = 0.05;
+    tw_param.pitchMax = PI * 15 / 180;
+    tw_param.rollMax = PI * 15 / 180;
 
     coParam co_param;
 
     rbt.SetPeb(beginPE);
     rbt.SetPee(beginEE);
 
-	auto result = rbt.simToAdams("D:\\Lab\\Models\\Adams\\RobotXIV\\walk.cmd", Robots::walkGait, wk_param, 50);
+	//auto result = rbt.simToAdams("D:\\Lab\\Models\\Adams\\RobotXV\\test.cmd", Robots::walkGait, wk_param, 50);
+    auto result = rbt.simToAdams("D:\\Lab\\Models\\Adams\\RobotXV\\test.cmd", twistWaistGait, tw_param, 50);
 
-	result.saveToTxt("D:\\Lab\\Models\\Adams\\RobotXIV\\test");
+	result.saveToTxt("D:\\Lab\\Models\\Adams\\RobotXV\\test");
 
-	rbt.saveXml("D:\\Lab\\Models\\Adams\\RobotXIV\\test.xml");
+	rbt.saveXml("D:\\Lab\\Models\\Adams\\RobotXV\\test.xml");
 
     /*
     Robots::WalkParam wk_param;
