@@ -6,6 +6,7 @@
 #include "swing.h"
 #include "twist_waist.h"
 #include "cross_obstacle.h"
+#include "say_hello.h"
 
 Robots::RobotTypeI rbt;
 
@@ -78,11 +79,14 @@ int main_test(int argc, char *argv[])
 
     coParam co_param;
 
+    shParam sh_param;
+    sh_param.isForward = true;
+
     rbt.SetPeb(beginPE);
     rbt.SetPee(beginEE);
 
 	//auto result = rbt.simToAdams("D:\\Lab\\Models\\Adams\\RobotXV\\test.cmd", Robots::walkGait, wk_param, 50);
-    auto result = rbt.simToAdams("D:\\Lab\\Models\\Adams\\RobotXV\\test.cmd", swingGait, sw_param, 50);
+    auto result = rbt.simToAdams("D:\\Lab\\Models\\Adams\\RobotXV\\test.cmd", sayHelloGait, sh_param, 50);
 
 	result.saveToTxt("D:\\Lab\\Models\\Adams\\RobotXV\\test");
 
