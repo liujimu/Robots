@@ -65,9 +65,9 @@ int main_test(int argc, char *argv[])
 
     swParam sw_param;
     sw_param.totalCount = 4000;
-    sw_param.yAngle = PI * 15 / 180;
+    sw_param.zAngle = PI * 15 / 180;
     sw_param.rDistance = 0.5;
-    sw_param.yDistance = 0.05;
+    sw_param.yDistance = -0.05;
 
     twParam tw_param;
     tw_param.totalCount = 6000;
@@ -82,7 +82,7 @@ int main_test(int argc, char *argv[])
     rbt.SetPee(beginEE);
 
 	//auto result = rbt.simToAdams("D:\\Lab\\Models\\Adams\\RobotXV\\test.cmd", Robots::walkGait, wk_param, 50);
-    auto result = rbt.simToAdams("D:\\Lab\\Models\\Adams\\RobotXV\\test.cmd", twistWaistGait, tw_param, 50);
+    auto result = rbt.simToAdams("D:\\Lab\\Models\\Adams\\RobotXV\\test.cmd", swingGait, sw_param, 50);
 
 	result.saveToTxt("D:\\Lab\\Models\\Adams\\RobotXV\\test");
 

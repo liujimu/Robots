@@ -10,8 +10,8 @@
                     <xAngle abbreviation="x" type="double" default="0"/>
                     <zAngle abbreviation="z" type="double" default="0"/>
                     <yAngle abbreviation="y" type="double" default="0"/>
-                    <rDistance abbreviation="r" type="double" default="0.6"/>
-                    <yDistance abbreviation="d" type="double" default="0.05"/>
+                    <rDistance abbreviation="r" type="double" default="0.5"/>
+                    <yDistance abbreviation="d" type="double" default="-0.05"/>
                 </sw_param>
             </sw>
 */

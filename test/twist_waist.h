@@ -7,10 +7,10 @@
             <tw default="tw_param">
                 <tw_param type="group">
                     <totalCount abbreviation="t" type="int" default="12000"/>
-                    <pitchMax abbreviation="p" type="double" default="10"/>
-                    <rollMax abbreviation="r" type="double" default="10"/>
-                    <diameter abbreviation="d" type="double" default="0.1"/>
-                    <height abbreviation="h" type="double" default="0.05"/>
+                    <pitchMax abbreviation="p" type="double" default="15"/>
+                    <rollMax abbreviation="r" type="double" default="15"/>
+                    <diameter abbreviation="d" type="double" default="0.05"/>
+                    <height abbreviation="h" type="double" default="0"/>
                 </tw_param>
             </tw>
 */
@@ -37,11 +37,11 @@
 
 struct twParam final:public aris::server::GaitParamBase
 {
-    std::int32_t totalCount{ 9000 };
-    double pitchMax{ PI * 10 / 180 };
-    double rollMax{ PI * 10 / 180 };
-    double diameter{ 0.1 };
-    double height{ 0.05 };
+    std::int32_t totalCount{ 12000 };
+    double pitchMax{ PI * 15 / 180 };
+    double rollMax{ PI * 15 / 180 };
+    double diameter{ 0.05 };
+    double height{ 0 };
 };
 
 auto twistWaistParse(const std::string &cmd, const std::map<std::string, std::string> &params, aris::core::Msg &msg)->void;

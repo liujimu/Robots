@@ -53,7 +53,7 @@ auto swingGait(aris::dynamic::Model &model, const aris::dynamic::PlanParamBase &
     static aris::dynamic::FloatMarker beginMak{ robot.ground() };
     static double beginPee[18];
 
-    if (param.count%param.totalCount == 0)
+    if (param.count == 0)
     {
         beginMak.setPrtPm(*robot.body().pm());
         beginMak.update();
@@ -91,10 +91,10 @@ auto swingGait(aris::dynamic::Model &model, const aris::dynamic::PlanParamBase &
     else if (0 != param.yAngle)//螺旋运动沿y方向
     {
         Peb[0] = 0;
-        Peb[1] = param.yDistance * sin(s / 2);
+        Peb[1] = param.yDistance * (1 - std::cos(2 * s)) / 2;
         Peb[2] = 0;
         Peb[3] = 0;
-        Peb[4] = param.yAngle * sin(s / 2);
+        Peb[4] = param.yAngle * std::sin(s);
         Peb[5] = 0;
         robot.SetPeb(Peb, beginMak, "123");
         robot.SetPee(Pee, beginMak);
