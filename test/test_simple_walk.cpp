@@ -61,8 +61,8 @@ int main_test(int argc, char *argv[])
 
     mbParam mb_param;
     mb_param.totalCount = 1000;
-    //mb_param.y = 0.1;
-    mb_param.roll = PI * 15 / 180;
+    mb_param.y = -0.1;
+    //mb_param.roll = PI * 15 / 180;
 
     swParam sw_param;
     sw_param.totalCount = 4000;
@@ -86,7 +86,7 @@ int main_test(int argc, char *argv[])
     rbt.SetPee(beginEE);
 
 	//auto result = rbt.simToAdams("D:\\Lab\\Models\\Adams\\RobotXV\\test.cmd", Robots::walkGait, wk_param, 50);
-    auto result = rbt.simToAdams("D:\\Lab\\Models\\Adams\\RobotXV\\test.cmd", sayHelloGait, sh_param, 50);
+    auto result = rbt.simToAdams("D:\\Lab\\Models\\Adams\\RobotXV\\test.cmd", moveBodyGait, mb_param, 50);
 
 	result.saveToTxt("D:\\Lab\\Models\\Adams\\RobotXV\\test");
 

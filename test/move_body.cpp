@@ -57,17 +57,6 @@ auto moveBodyGait(aris::dynamic::Model &model, const aris::dynamic::PlanParamBas
     //初始化
     static aris::dynamic::FloatMarker beginMak{ robot.ground() };
     static double beginPee[18];
-    if (param.count == 0)
-    {
-        beginMak.setPrtPm(*robot.body().pm());
-        beginMak.update();
-        robot.GetPee(beginPee, beginMak);
-    }
-
-    double Peb[6], Pee[18];
-    std::fill(Peb, Peb + 6, 0);
-	std::copy(beginPee, beginPee + 18, Pee);
-
     double targetPeb[6]{ 0 };
     targetPeb[0] = param.x;
     targetPeb[1] = param.y;
@@ -75,6 +64,52 @@ auto moveBodyGait(aris::dynamic::Model &model, const aris::dynamic::PlanParamBas
 	targetPeb[3] = param.pitch;
 	targetPeb[4] = param.yaw;
 	targetPeb[5] = param.roll;
+
+    if (param.count == 0)
+    {
+        beginMak.setPrtPm(*robot.body().pm());
+        beginMak.update();
+        robot.GetPee(beginPee, beginMak);
+
+        //手段判断是否超行程
+        robot.SetPeb(targetPeb);
+        robot.SetPee(beginPee, beginMak);
+        double targetPin[18]{ 0 };
+        robot.GetPin(targetPin);
+        bool isOverStroke{ false };
+        aris::server::ControlServer &cs = aris::server::ControlServer::instance();
+        for (int i = 0; i<18; ++i)
+        {
+            if (targetPin[i] > (double)cs.controller().motionAtAbs(i).maxPosCount() / cs.controller().motionAtAbs(i).pos2countRatio())
+            {
+                rt_printf("Motor %i's target position is bigger than its MAX permitted value.\n", i);
+                rt_printf("The targetPin and max stroke are:\n");
+                rt_printf("%f\t%f\n", targetPin[i], (double)cs.controller().motionAtAbs(i).maxPosCount() / cs.controller().motionAtAbs(i).pos2countRatio());
+                isOverStroke = true;
+                break;
+            }
+            if (targetPin[i] < (double)cs.controller().motionAtAbs(i).minPosCount() / cs.controller().motionAtAbs(i).pos2countRatio())
+            {
+                rt_printf("Motor %i's target position is smaller than its MIN permitted value.\n", i);
+                rt_printf("The targetPin and min stroke are:\n");
+                rt_printf("%f\t%f\n", targetPin[i], (double)cs.controller().motionAtAbs(i).minPosCount() / cs.controller().motionAtAbs(i).pos2countRatio());
+                isOverStroke = true;
+                break;
+            }
+        }
+        double peb[6]{ 0 };
+        robot.SetPeb(peb);
+        robot.SetPee(beginPee, beginMak);
+        if (isOverStroke)
+        {
+            return 0;
+        }
+    }
+
+    double Peb[6], Pee[18];
+    std::fill(Peb, Peb + 6, 0);
+	std::copy(beginPee, beginPee + 18, Pee);
+
 	const double s = -0.5 * cos(PI * (param.count + 1) / param.totalCount) + 0.5; //s从0到1. 
 
 	for (int i = 0; i < 6; ++i)
