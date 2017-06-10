@@ -7,6 +7,7 @@
 #include "twist_waist.h"
 #include "cross_obstacle.h"
 #include "say_hello.h"
+#include "climb_stairs_v2.h"
 
 Robots::RobotTypeI rbt;
 
@@ -41,15 +42,38 @@ int main_test(int argc, char *argv[])
     rbt.loadXml("/usr/Robots/resource/Robot_Type_I/Robot_III/Robot_III.xml");
 #endif
 
+  //  const double beginEE[]{
+		//-0.30,   -0.59,   -0.52,
+		//-0.60,   -0.59,    0,
+		//-0.30,   -0.59,    0.52,
+		//0.30,   -0.59,   -0.52,
+		//0.60,   -0.59,    0,
+		//0.30,   -0.59,    0.52 };
+    const double offset = 0.058;
     const double beginEE[]{
-		-0.30,   -0.59,   -0.52,
-		-0.60,   -0.59,    0,
-		-0.30,   -0.59,    0.52,
-		0.30,   -0.59,   -0.52,
-		0.60,   -0.59,    0,
-		0.30,   -0.59,    0.52 };
+        -0.2828 - offset,   -0.61,   -0.35,
+        -0.5656 - offset,   -0.61,    0,
+        -0.2828 - offset,   -0.61,    0.35,
+        0.2828 - offset,   -0.61,   -0.35,
+        0.5656 - offset,   -0.61,    0,
+        0.2828 - offset,   -0.61,    0.35 };
 
     double beginPE[6]{ 0 };
+
+    //调整身体姿态和足尖位置到楼梯上
+    const double angle{ PI / 180 * 45 };
+    const double sa = std::sin(angle);
+    const double ca = std::cos(angle);
+    beginPE[3] = angle;
+    double beginPee[18]{ 0 };
+    for (int i = 0; i < 18; i += 3)
+    {
+        beginPee[i] = ca*beginEE[i] - sa*beginEE[i + 1];
+        beginPee[i+1] = sa*beginEE[i] + ca*beginEE[i + 1];
+        beginPee[i + 2] = beginEE[i + 2];
+    }
+    printf("beginPee:\n%f\t%f\t%f\n%f\t%f\t%f\n", 
+        beginPee[0], beginPee[1], beginPee[2], beginPee[3], beginPee[4], beginPee[5]);
 
     Robots::WalkParam wk_param;
     wk_param.totalCount = 1000;
@@ -82,15 +106,18 @@ int main_test(int argc, char *argv[])
     shParam sh_param;
     sh_param.isForward = true;
 
+    cs2Param cs2_param;
+
     rbt.SetPeb(beginPE);
-    rbt.SetPee(beginEE);
+    //rbt.SetPee(beginEE);
+    rbt.SetPee(beginPee);
 
-	//auto result = rbt.simToAdams("D:\\Lab\\Models\\Adams\\RobotXV\\test.cmd", Robots::walkGait, wk_param, 50);
-    auto result = rbt.simToAdams("D:\\Lab\\Models\\Adams\\RobotXV\\test.cmd", moveBodyGait, mb_param, 50);
+	//auto result = rbt.simToAdams("G:\\Lab\\Models\\Adams\\RobotXV\\test.cmd", Robots::walkGait, wk_param, 50);
+    auto result = rbt.simToAdams("G:\\Lab\\Models\\Adams\\RobotXV\\test.cmd", climbStairsV2Gait, cs2_param, 50);
 
-	result.saveToTxt("D:\\Lab\\Models\\Adams\\RobotXV\\test");
+	result.saveToTxt("G:\\Lab\\Models\\Adams\\RobotXV\\test");
 
-	rbt.saveXml("D:\\Lab\\Models\\Adams\\RobotXV\\test.xml");
+	rbt.saveXml("G:\\Lab\\Models\\Adams\\RobotXV\\test.xml");
 
     /*
     Robots::WalkParam wk_param;
