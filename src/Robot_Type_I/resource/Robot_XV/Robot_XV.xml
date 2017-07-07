@@ -114,46 +114,46 @@
         <Part>
             <Ground type="part" active="true" pe="{0 , 0 , 0 , -0 , 0 , -0}" vel="{0 , 0 , 0 , 0 , 0 , 0}" acc="{0 , 0 , 0 , 0 , 0 , 0}" inertia="{1 , 0 , 0 , 0 , 1 , 1 , 1 , 0 , 0 , 0}" graphic_file_path="">
                 <ChildMarker>
-                    <LF_Sfj type="marker" active="true" pe="{-0.3 , -0.85 , -0.65 , 1.87076482717163 , 2.55246655579383 , 3.81038157127293}"/>
-                    <LM_Sfj type="marker" active="true" pe="{-0.45 , -0.85 , 0 , 2.16210430732683 , 3.14159265358979 , 4.12108099985276}"/>
-                    <LR_Sfj type="marker" active="true" pe="{-0.3 , -0.85 , 0.65 , 5.01235748076143 , 2.55246655579383 , 0.668788917683143}"/>
-                    <RF_Sfj type="marker" active="true" pe="{0.3 , -0.85 , -0.65 , 1.27082782641815 , 0.589126097795963 , 3.81038157127293}"/>
-                    <RM_Sfj type="marker" active="true" pe="{0.45 , -0.85 , 0 , 5.69187732664766 , 0 , 5.69187732664766}"/>
-                    <RR_Sfj type="marker" active="true" pe="{0.3 , -0.85 , 0.65 , 4.41242048000795 , 0.589126097795968 , 0.668788917683135}"/>
+                    <LF_Sfj type="marker" active="true" pe="{-0.3 , -0.58 , -0.52 , 1.57099817627882 , 2.09421176539154 , 3.79110955244419}"/>
+                    <LM_Sfj type="marker" active="true" pe="{-0.6 , -0.58 , -4.93038065763132e-32 , 2.03165927326711 , 3.14159265358979 , 4.25152603391247}"/>
+                    <LR_Sfj type="marker" active="true" pe="{-0.3 , -0.58 , 0.52 , 4.71259082986862 , 2.09421176539155 , 0.649516898854396}"/>
+                    <RF_Sfj type="marker" active="true" pe="{0.3 , -0.58 , -0.52 , 1.57059447731097 , 1.04738088819825 , 3.79110955244419}"/>
+                    <RM_Sfj type="marker" active="true" pe="{0.6 , -0.58 , 0 , 5.82232236070737 , 0 , 5.82232236070737}"/>
+                    <RR_Sfj type="marker" active="true" pe="{0.3 , -0.58 , 0.52 , 4.71218713090076 , 1.04738088819825 , 0.649516898854395}"/>
                     <Origin type="marker" active="true" pe="{0 , 0 , 0 , -0 , 0 , -0}"/>
                 </ChildMarker>
             </Ground>
-            <LF_P1a type="part" active="true" pe="{-0.05433 , 0 , -0.3253 , 1.87076482717163 , 2.55246655579383 , 3.81038157127293}" vel="{0 , 0 , 0 , 0 , 0 , 0}" acc="{0 , 0 , 0 , 0 , 0 , 0}" inertia="P1aGamma" graphic_file_path="${P1a_graphic}">
+            <LF_P1a type="part" active="true" pe="{-0.0762 , 0 , -0.132 , 1.57099817627882 , 2.09421176539154 , 3.79110955244419}" vel="{0 , 0 , 0 , 0 , 0 , 0}" acc="{0 , 0 , 0 , 0 , 0 , 0}" inertia="P1aGamma" graphic_file_path="${P1a_graphic}">
                 <ChildMarker>
                     <P1j type="marker" active="true" pe="P1jpe"/>
                     <U1j type="marker" active="true" pe="U1jpe"/>
                 </ChildMarker>
             </LF_P1a>
-            <LF_P2a type="part" active="true" pe="{-0.181401782467171 , 0.0600460184637857 , -0.553394799956647 , 1.67242939438052 , 2.60172195202901 , 3.44213495507482}" vel="{0 , 0 , 0 , 0 , 0 , 0}" acc="{0 , 0 , 0 , 0 , 0 , 0}" inertia="P2aGamma" graphic_file_path="${P23a_graphic}">
+            <LF_P2a type="part" active="true" pe="{-0.0524257832325471 , 0.117237818837122 , -0.274821848648616 , 1.49359580805895 , 2.1604242696583 , 3.60024439088473}" vel="{0 , 0 , 0 , 0 , 0 , 0}" acc="{0 , 0 , 0 , 0 , 0 , 0}" inertia="P2aGamma" graphic_file_path="${P23a_graphic}">
                 <ChildMarker>
                     <P2j type="marker" active="true" pe="P2jpe"/>
                     <U2j type="marker" active="true" pe="U2jpe"/>
                 </ChildMarker>
             </LF_P2a>
-            <LF_P2b type="part" active="true" pe="{-0.312586693716602 , -0.762220108040695 , -0.681595343152072 , 1.67242939438052 , 2.60172195202901 , 3.44213495507482}" vel="{0 , 0 , 0 , 0 , 0 , 0}" acc="{0 , 0 , 0 , 0 , 0 , 0}" inertia="P2bGamma" graphic_file_path="${P23b_graphic}">
+            <LF_P2b type="part" active="true" pe="{-0.282955589569569 , -0.523919366962416 , -0.544463251443397 , 1.49359580805895 , 2.1604242696583 , 3.60024439088473}" vel="{0 , 0 , 0 , 0 , 0 , 0}" acc="{0 , 0 , 0 , 0 , 0 , 0}" inertia="P2bGamma" graphic_file_path="${P23b_graphic}">
                 <ChildMarker>
                     <P2i type="marker" active="true" pe="P2ipe"/>
                     <S2j type="marker" active="true" pe="S2jpe"/>
                 </ChildMarker>
             </LF_P2b>
-            <LF_P3a type="part" active="true" pe="{-0.315401782467171 , 0.0600460184637859 , -0.321299991742418 , 2.03020849392424 , 2.49137127895773 , 3.7423502327588}" vel="{0 , 0 , 0 , 0 , 0 , 0}" acc="{0 , 0 , 0 , 0 , 0 , 0}" inertia="P3aGamma" graphic_file_path="${P23a_graphic}">
+            <LF_P3a type="part" active="true" pe="{-0.211774457528884 , 0.117237818837122 , -0.182821848648617 , 1.64259561717716 , 2.02560402545374 , 3.67485802460954}" vel="{0 , 0 , 0 , 0 , 0 , 0}" acc="{0 , 0 , 0 , 0 , 0 , 0}" inertia="P3aGamma" graphic_file_path="${P23a_graphic}">
                 <ChildMarker>
                     <P3j type="marker" active="true" pe="P3jpe"/>
                     <U3j type="marker" active="true" pe="U3jpe"/>
                 </ChildMarker>
             </LF_P3a>
-            <LF_P3b type="part" active="true" pe="{-0.348682673184127 , -0.773384657158319 , -0.625058336605207 , 2.03020849392424 , 2.49137127895773 , 3.7423502327588}" vel="{0 , 0 , 0 , 0 , 0 , 0}" acc="{0 , 0 , 0 , 0 , 0 , 0}" inertia="P3bGamma" graphic_file_path="${P23b_graphic}">
+            <LF_P3b type="part" active="true" pe="{-0.329725909734209 , -0.523928807527533 , -0.517471825720165 , 1.64259561717716 , 2.02560402545374 , 3.67485802460954}" vel="{0 , 0 , 0 , 0 , 0 , 0}" acc="{0 , 0 , 0 , 0 , 0 , 0}" inertia="P3bGamma" graphic_file_path="${P23b_graphic}">
                 <ChildMarker>
                     <P3i type="marker" active="true" pe="P3ipe"/>
                     <S3j type="marker" active="true" pe="S3jpe"/>
                 </ChildMarker>
             </LF_P3b>
-            <LF_Thigh type="part" active="true" pe="{-0.283057027650631 , -0.791378570859432 , -0.627606614068303 , 1.87076482717163 , 2.55246655579383 , 3.81038157127293}" vel="{0 , 0 , 0 , 0 , 0 , 0}" acc="{0 , 0 , 0 , 0 , 0 , 0}" inertia="ThighGamma" graphic_file_path="${P1b_graphic}">
+            <LF_Thigh type="part" active="true" pe="{-0.286431566859457 , -0.554160156509422 , -0.496479793570356 , 1.57099817627882 , 2.09421176539154 , 3.79110955244419}" vel="{0 , 0 , 0 , 0 , 0 , 0}" acc="{0 , 0 , 0 , 0 , 0 , 0}" inertia="ThighGamma" graphic_file_path="${P1b_graphic}">
                 <ChildMarker>
                     <P1i type="marker" active="true" pe="P1ipe"/>
                     <S2i type="marker" active="true" pe="S2ipe"/>
@@ -161,37 +161,37 @@
                     <Sfi type="marker" active="true" pe="Sfipe"/>
                 </ChildMarker>
             </LF_Thigh>
-            <LM_P1a type="part" active="true" pe="{-0.10241 , 0 , 0 , 2.16210430732683 , 3.14159265358979 , 4.12108099985276}" vel="{0 , 0 , 0 , 0 , 0 , 0}" acc="{0 , 0 , 0 , 0 , 0 , 0}" inertia="P1aGamma" graphic_file_path="${P1a_graphic}">
+            <LM_P1a type="part" active="true" pe="{-0.1524 , 0 , 0 , 2.03165927326711 , 3.14159265358979 , 4.25152603391247}" vel="{0 , 0 , 0 , 0 , 0 , 0}" acc="{0 , 0 , 0 , 0 , 0 , 0}" inertia="P1aGamma" graphic_file_path="${P1a_graphic}">
                 <ChildMarker>
                     <P1j type="marker" active="true" pe="P1jpe"/>
                     <U1j type="marker" active="true" pe="U1jpe"/>
                 </ChildMarker>
             </LM_P1a>
-            <LM_P2a type="part" active="true" pe="{-0.326504791699063 , 0.0600460184637858 , -0.134000000000001 , 6.02138591938046 , 3.02297421948715 , 1.49295161468752}" vel="{0 , 0 , 0 , 0 , 0 , 0}" acc="{0 , 0 , 0 , 0 , 0 , 0}" inertia="P2aGamma" graphic_file_path="${P23a_graphic}">
+            <LM_P2a type="part" active="true" pe="{-0.264200240761431 , 0.117237818837122 , -0.0920000000000003 , 5.47405066595504 , 3.04829629446522 , 1.26078590140324}" vel="{0 , 0 , 0 , 0 , 0 , 0}" acc="{0 , 0 , 0 , 0 , 0 , 0}" inertia="P2aGamma" graphic_file_path="${P23a_graphic}">
                 <ChildMarker>
                     <P2j type="marker" active="true" pe="P2jpe"/>
                     <U2j type="marker" active="true" pe="U2jpe"/>
                 </ChildMarker>
             </LM_P2a>
-            <LM_P2b type="part" active="true" pe="{-0.480007549218388 , -0.767504260777262 , -0.0340000000000002 , 6.02138591938046 , 3.02297421948715 , 1.49295161468752}" vel="{0 , 0 , 0 , 0 , 0 , 0}" acc="{0 , 0 , 0 , 0 , 0 , 0}" inertia="P2bGamma" graphic_file_path="${P23b_graphic}">
+            <LM_P2b type="part" active="true" pe="{-0.612687917796631 , -0.523928467632979 , -0.0270000000000001 , 5.47405066595504 , 3.04829629446522 , 1.26078590140324}" vel="{0 , 0 , 0 , 0 , 0 , 0}" acc="{0 , 0 , 0 , 0 , 0 , 0}" inertia="P2bGamma" graphic_file_path="${P23b_graphic}">
                 <ChildMarker>
                     <P2i type="marker" active="true" pe="P2ipe"/>
                     <S2j type="marker" active="true" pe="S2jpe"/>
                 </ChildMarker>
             </LM_P2b>
-            <LM_P3a type="part" active="true" pe="{-0.326504791699064 , 0.0600460184637858 , 0.133999999999999 , 2.87979326579062 , 3.02297421948715 , 4.63454426827726}" vel="{0 , 0 , 0 , 0 , 0 , 0}" acc="{0 , 0 , 0 , 0 , 0 , 0}" inertia="P3aGamma" graphic_file_path="${P23a_graphic}">
+            <LM_P3a type="part" active="true" pe="{-0.264200240761432 , 0.117237818837122 , 0.0919999999999997 , 2.3324580123652 , 3.04829629446522 , 4.40237855499298}" vel="{0 , 0 , 0 , 0 , 0 , 0}" acc="{0 , 0 , 0 , 0 , 0 , 0}" inertia="P3aGamma" graphic_file_path="${P23a_graphic}">
                 <ChildMarker>
                     <P3j type="marker" active="true" pe="P3jpe"/>
                     <U3j type="marker" active="true" pe="U3jpe"/>
                 </ChildMarker>
             </LM_P3a>
-            <LM_P3b type="part" active="true" pe="{-0.480007549218388 , -0.767504260777262 , 0.0339999999999998 , 2.87979326579062 , 3.02297421948715 , 4.63454426827726}" vel="{0 , 0 , 0 , 0 , 0 , 0}" acc="{0 , 0 , 0 , 0 , 0 , 0}" inertia="P3bGamma" graphic_file_path="${P23b_graphic}">
+            <LM_P3b type="part" active="true" pe="{-0.612687917796631 , -0.523928467632978 , 0.0269999999999999 , 2.3324580123652 , 3.04829629446522 , 4.40237855499298}" vel="{0 , 0 , 0 , 0 , 0 , 0}" acc="{0 , 0 , 0 , 0 , 0 , 0}" inertia="P3bGamma" graphic_file_path="${P23b_graphic}">
                 <ChildMarker>
                     <P3i type="marker" active="true" pe="P3ipe"/>
                     <S3j type="marker" active="true" pe="S3jpe"/>
                 </ChildMarker>
             </LM_P3b>
-            <LM_Thigh type="part" active="true" pe="{-0.425397188622955 , -0.789836043411811 , 0 , 2.16210430732683 , 3.14159265358979 , 4.12108099985276}" vel="{0 , 0 , 0 , 0 , 0 , 0}" acc="{0 , 0 , 0 , 0 , 0 , 0}" inertia="ThighGamma" graphic_file_path="${P1b_graphic}">
+            <LM_Thigh type="part" active="true" pe="{-0.572855617030647 , -0.554150774224107 , 1.28509199689769e-17 , 2.03165927326711 , 3.14159265358979 , 4.25152603391247}" vel="{0 , 0 , 0 , 0 , 0 , 0}" acc="{0 , 0 , 0 , 0 , 0 , 0}" inertia="ThighGamma" graphic_file_path="${P1b_graphic}">
                 <ChildMarker>
                     <P1i type="marker" active="true" pe="P1ipe"/>
                     <S2i type="marker" active="true" pe="S2ipe"/>
@@ -199,37 +199,37 @@
                     <Sfi type="marker" active="true" pe="Sfipe"/>
                 </ChildMarker>
             </LM_Thigh>
-            <LR_P1a type="part" active="true" pe="{-0.05433 , 0 , 0.3253 , 5.01235748076143 , 2.55246655579383 , 0.668788917683143}" vel="{0 , 0 , 0 , 0 , 0 , 0}" acc="{0 , 0 , 0 , 0 , 0 , 0}" inertia="P1aGamma" graphic_file_path="${P1a_graphic}">
+            <LR_P1a type="part" active="true" pe="{-0.0762 , 0 , 0.132 , 4.71259082986862 , 2.09421176539155 , 0.649516898854396}" vel="{0 , 0 , 0 , 0 , 0 , 0}" acc="{0 , 0 , 0 , 0 , 0 , 0}" inertia="P1aGamma" graphic_file_path="${P1a_graphic}">
                 <ChildMarker>
                     <P1j type="marker" active="true" pe="P1jpe"/>
                     <U1j type="marker" active="true" pe="U1jpe"/>
                 </ChildMarker>
             </LR_P1a>
-            <LR_P2a type="part" active="true" pe="{-0.315401782467171 , 0.0600460184637859 , 0.321299991742416 , 5.17180114751404 , 2.49137127895774 , 0.600757579169014}" vel="{0 , 0 , 0 , 0 , 0 , 0}" acc="{0 , 0 , 0 , 0 , 0 , 0}" inertia="P2aGamma" graphic_file_path="${P23a_graphic}">
+            <LR_P2a type="part" active="true" pe="{-0.211774457528884 , 0.117237818837122 , 0.182821848648616 , 4.78418827076695 , 2.02560402545375 , 0.53326537101975}" vel="{0 , 0 , 0 , 0 , 0 , 0}" acc="{0 , 0 , 0 , 0 , 0 , 0}" inertia="P2aGamma" graphic_file_path="${P23a_graphic}">
                 <ChildMarker>
                     <P2j type="marker" active="true" pe="P2jpe"/>
                     <U2j type="marker" active="true" pe="U2jpe"/>
                 </ChildMarker>
             </LR_P2a>
-            <LR_P2b type="part" active="true" pe="{-0.348682673184127 , -0.773384657158319 , 0.625058336605206 , 5.17180114751404 , 2.49137127895774 , 0.600757579169014}" vel="{0 , 0 , 0 , 0 , 0 , 0}" acc="{0 , 0 , 0 , 0 , 0 , 0}" inertia="P2bGamma" graphic_file_path="${P23b_graphic}">
+            <LR_P2b type="part" active="true" pe="{-0.329725909734209 , -0.523928807527533 , 0.517471825720165 , 4.78418827076695 , 2.02560402545375 , 0.53326537101975}" vel="{0 , 0 , 0 , 0 , 0 , 0}" acc="{0 , 0 , 0 , 0 , 0 , 0}" inertia="P2bGamma" graphic_file_path="${P23b_graphic}">
                 <ChildMarker>
                     <P2i type="marker" active="true" pe="P2ipe"/>
                     <S2j type="marker" active="true" pe="S2jpe"/>
                 </ChildMarker>
             </LR_P2b>
-            <LR_P3a type="part" active="true" pe="{-0.181401782467172 , 0.0600460184637857 , 0.553394799956646 , 4.81402204797032 , 2.60172195202902 , 0.300542301485031}" vel="{0 , 0 , 0 , 0 , 0 , 0}" acc="{0 , 0 , 0 , 0 , 0 , 0}" inertia="P3aGamma" graphic_file_path="${P23a_graphic}">
+            <LR_P3a type="part" active="true" pe="{-0.0524257832325479 , 0.117237818837122 , 0.274821848648617 , 4.63518846164875 , 2.1604242696583 , 0.458651737294941}" vel="{0 , 0 , 0 , 0 , 0 , 0}" acc="{0 , 0 , 0 , 0 , 0 , 0}" inertia="P3aGamma" graphic_file_path="${P23a_graphic}">
                 <ChildMarker>
                     <P3j type="marker" active="true" pe="P3jpe"/>
                     <U3j type="marker" active="true" pe="U3jpe"/>
                 </ChildMarker>
             </LR_P3a>
-            <LR_P3b type="part" active="true" pe="{-0.312586693716603 , -0.762220108040695 , 0.681595343152071 , 4.81402204797032 , 2.60172195202902 , 0.300542301485031}" vel="{0 , 0 , 0 , 0 , 0 , 0}" acc="{0 , 0 , 0 , 0 , 0 , 0}" inertia="P3bGamma" graphic_file_path="${P23b_graphic}">
+            <LR_P3b type="part" active="true" pe="{-0.282955589569569 , -0.523919366962416 , 0.544463251443398 , 4.63518846164875 , 2.1604242696583 , 0.458651737294941}" vel="{0 , 0 , 0 , 0 , 0 , 0}" acc="{0 , 0 , 0 , 0 , 0 , 0}" inertia="P3bGamma" graphic_file_path="${P23b_graphic}">
                 <ChildMarker>
                     <P3i type="marker" active="true" pe="P3ipe"/>
                     <S3j type="marker" active="true" pe="S3jpe"/>
                 </ChildMarker>
             </LR_P3b>
-            <LR_Thigh type="part" active="true" pe="{-0.283057027650632 , -0.791378570859432 , 0.627606614068303 , 5.01235748076143 , 2.55246655579383 , 0.668788917683143}" vel="{0 , 0 , 0 , 0 , 0 , 0}" acc="{0 , 0 , 0 , 0 , 0 , 0}" inertia="ThighGamma" graphic_file_path="${P1b_graphic}">
+            <LR_Thigh type="part" active="true" pe="{-0.286431566859456 , -0.554160156509422 , 0.496479793570357 , 4.71259082986862 , 2.09421176539155 , 0.649516898854396}" vel="{0 , 0 , 0 , 0 , 0 , 0}" acc="{0 , 0 , 0 , 0 , 0 , 0}" inertia="ThighGamma" graphic_file_path="${P1b_graphic}">
                 <ChildMarker>
                     <P1i type="marker" active="true" pe="P1ipe"/>
                     <S2i type="marker" active="true" pe="S2ipe"/>
@@ -267,37 +267,37 @@
                     <ForceSensorMak type="marker" active="true" pe="ForceSensorMakPe"/>
                 </ChildMarker>
             </MainBody>
-            <RF_P1a type="part" active="true" pe="{0.05433 , 0 , -0.3253 , 1.27082782641815 , 0.589126097795963 , 3.81038157127293}" vel="{0 , 0 , 0 , 0 , 0 , 0}" acc="{0 , 0 , 0 , 0 , 0 , 0}" inertia="P1aGamma" graphic_file_path="${P1a_graphic}">
+            <RF_P1a type="part" active="true" pe="{0.0762 , 0 , -0.132 , 1.57059447731097 , 1.04738088819825 , 3.79110955244419}" vel="{0 , 0 , 0 , 0 , 0 , 0}" acc="{0 , 0 , 0 , 0 , 0 , 0}" inertia="P1aGamma" graphic_file_path="${P1a_graphic}">
                 <ChildMarker>
                     <P1j type="marker" active="true" pe="P1jpe"/>
                     <U1j type="marker" active="true" pe="U1jpe"/>
                 </ChildMarker>
             </RF_P1a>
-            <RF_P2a type="part" active="true" pe="{0.315401782467171 , 0.0600460184637851 , -0.321299991742417 , 1.11138415966554 , 0.650221374632058 , 3.74235023275881}" vel="{0 , 0 , 0 , 0 , 0 , 0}" acc="{0 , 0 , 0 , 0 , 0 , 0}" inertia="P2aGamma" graphic_file_path="${P23a_graphic}">
+            <RF_P2a type="part" active="true" pe="{0.211774457528885 , 0.117237818837122 , -0.182821848648616 , 1.49899703641263 , 1.11598862813605 , 3.67485802460954}" vel="{0 , 0 , 0 , 0 , 0 , 0}" acc="{0 , 0 , 0 , 0 , 0 , 0}" inertia="P2aGamma" graphic_file_path="${P23a_graphic}">
                 <ChildMarker>
                     <P2j type="marker" active="true" pe="P2jpe"/>
                     <U2j type="marker" active="true" pe="U2jpe"/>
                 </ChildMarker>
             </RF_P2a>
-            <RF_P2b type="part" active="true" pe="{0.348682673184127 , -0.773384657158319 , -0.625058336605207 , 1.11138415966554 , 0.650221374632058 , 3.74235023275881}" vel="{0 , 0 , 0 , 0 , 0 , 0}" acc="{0 , 0 , 0 , 0 , 0 , 0}" inertia="P2bGamma" graphic_file_path="${P23b_graphic}">
+            <RF_P2b type="part" active="true" pe="{0.329725909734209 , -0.523928807527533 , -0.517471825720166 , 1.49899703641263 , 1.11598862813605 , 3.67485802460954}" vel="{0 , 0 , 0 , 0 , 0 , 0}" acc="{0 , 0 , 0 , 0 , 0 , 0}" inertia="P2bGamma" graphic_file_path="${P23b_graphic}">
                 <ChildMarker>
                     <P2i type="marker" active="true" pe="P2ipe"/>
                     <S2j type="marker" active="true" pe="S2jpe"/>
                 </ChildMarker>
             </RF_P2b>
-            <RF_P3a type="part" active="true" pe="{0.181401782467171 , 0.0600460184637853 , -0.553394799956647 , 1.46916325920927 , 0.539870701560778 , 3.44213495507482}" vel="{0 , 0 , 0 , 0 , 0 , 0}" acc="{0 , 0 , 0 , 0 , 0 , 0}" inertia="P3aGamma" graphic_file_path="${P23a_graphic}">
+            <RF_P3a type="part" active="true" pe="{0.0524257832325479 , 0.117237818837122 , -0.274821848648617 , 1.64799684553084 , 0.981168383931493 , 3.60024439088473}" vel="{0 , 0 , 0 , 0 , 0 , 0}" acc="{0 , 0 , 0 , 0 , 0 , 0}" inertia="P3aGamma" graphic_file_path="${P23a_graphic}">
                 <ChildMarker>
                     <P3j type="marker" active="true" pe="P3jpe"/>
                     <U3j type="marker" active="true" pe="U3jpe"/>
                 </ChildMarker>
             </RF_P3a>
-            <RF_P3b type="part" active="true" pe="{0.312586693716603 , -0.762220108040695 , -0.681595343152072 , 1.46916325920927 , 0.539870701560778 , 3.44213495507482}" vel="{0 , 0 , 0 , 0 , 0 , 0}" acc="{0 , 0 , 0 , 0 , 0 , 0}" inertia="P3bGamma" graphic_file_path="${P23b_graphic}">
+            <RF_P3b type="part" active="true" pe="{0.282955589569569 , -0.523919366962416 , -0.544463251443398 , 1.64799684553084 , 0.981168383931493 , 3.60024439088473}" vel="{0 , 0 , 0 , 0 , 0 , 0}" acc="{0 , 0 , 0 , 0 , 0 , 0}" inertia="P3bGamma" graphic_file_path="${P23b_graphic}">
                 <ChildMarker>
                     <P3i type="marker" active="true" pe="P3ipe"/>
                     <S3j type="marker" active="true" pe="S3jpe"/>
                 </ChildMarker>
             </RF_P3b>
-            <RF_Thigh type="part" active="true" pe="{0.283057027650631 , -0.791378570859432 , -0.627606614068303 , 1.27082782641815 , 0.589126097795963 , 3.81038157127293}" vel="{0 , 0 , 0 , 0 , 0 , 0}" acc="{0 , 0 , 0 , 0 , 0 , 0}" inertia="ThighGamma" graphic_file_path="${P1b_graphic}">
+            <RF_Thigh type="part" active="true" pe="{0.286431566859457 , -0.554160156509422 , -0.496479793570357 , 1.57059447731097 , 1.04738088819825 , 3.79110955244419}" vel="{0 , 0 , 0 , 0 , 0 , 0}" acc="{0 , 0 , 0 , 0 , 0 , 0}" inertia="ThighGamma" graphic_file_path="${P1b_graphic}">
                 <ChildMarker>
                     <P1i type="marker" active="true" pe="P1ipe"/>
                     <S2i type="marker" active="true" pe="S2ipe"/>
@@ -305,37 +305,37 @@
                     <Sfi type="marker" active="true" pe="Sfipe"/>
                 </ChildMarker>
             </RF_Thigh>
-            <RM_P1a type="part" active="true" pe="{0.10241 , 0 , 0 , 5.69187732664766 , 0 , 5.69187732664766}" vel="{0 , 0 , 0 , 0 , 0 , 0}" acc="{0 , 0 , 0 , 0 , 0 , 0}" inertia="P1aGamma" graphic_file_path="${P1a_graphic}">
+            <RM_P1a type="part" active="true" pe="{0.1524 , 0 , 0 , 5.82232236070737 , 0 , 5.82232236070737}" vel="{0 , 0 , 0 , 0 , 0 , 0}" acc="{0 , 0 , 0 , 0 , 0 , 0}" inertia="P1aGamma" graphic_file_path="${P1a_graphic}">
                 <ChildMarker>
                     <P1j type="marker" active="true" pe="P1jpe"/>
                     <U1j type="marker" active="true" pe="U1jpe"/>
                 </ChildMarker>
             </RM_P1a>
-            <RM_P2a type="part" active="true" pe="{0.326504791699064 , 0.0600460184637851 , 0.134 , 0.261799387799146 , 0.118618434102643 , 4.63454426827729}" vel="{0 , 0 , 0 , 0 , 0 , 0}" acc="{0 , 0 , 0 , 0 , 0 , 0}" inertia="P2aGamma" graphic_file_path="${P23a_graphic}">
+            <RM_P2a type="part" active="true" pe="{0.264200240761432 , 0.117237818837122 , 0.092 , 0.809134641224582 , 0.0932963591245736 , 4.40237855499299}" vel="{0 , 0 , 0 , 0 , 0 , 0}" acc="{0 , 0 , 0 , 0 , 0 , 0}" inertia="P2aGamma" graphic_file_path="${P23a_graphic}">
                 <ChildMarker>
                     <P2j type="marker" active="true" pe="P2jpe"/>
                     <U2j type="marker" active="true" pe="U2jpe"/>
                 </ChildMarker>
             </RM_P2a>
-            <RM_P2b type="part" active="true" pe="{0.480007549218388 , -0.767504260777262 , 0.034 , 0.261799387799146 , 0.118618434102643 , 4.63454426827729}" vel="{0 , 0 , 0 , 0 , 0 , 0}" acc="{0 , 0 , 0 , 0 , 0 , 0}" inertia="P2bGamma" graphic_file_path="${P23b_graphic}">
+            <RM_P2b type="part" active="true" pe="{0.612687917796631 , -0.523928467632979 , 0.027 , 0.809134641224582 , 0.0932963591245736 , 4.40237855499299}" vel="{0 , 0 , 0 , 0 , 0 , 0}" acc="{0 , 0 , 0 , 0 , 0 , 0}" inertia="P2bGamma" graphic_file_path="${P23b_graphic}">
                 <ChildMarker>
                     <P2i type="marker" active="true" pe="P2ipe"/>
                     <S2j type="marker" active="true" pe="S2jpe"/>
                 </ChildMarker>
             </RM_P2b>
-            <RM_P3a type="part" active="true" pe="{0.326504791699064 , 0.0600460184637851 , -0.134 , 3.40339204138894 , 0.118618434102643 , 1.4929516146875}" vel="{0 , 0 , 0 , 0 , 0 , 0}" acc="{0 , 0 , 0 , 0 , 0 , 0}" inertia="P3aGamma" graphic_file_path="${P23a_graphic}">
+            <RM_P3a type="part" active="true" pe="{0.264200240761432 , 0.117237818837122 , -0.092 , 3.95072729481438 , 0.0932963591245736 , 1.2607859014032}" vel="{0 , 0 , 0 , 0 , 0 , 0}" acc="{0 , 0 , 0 , 0 , 0 , 0}" inertia="P3aGamma" graphic_file_path="${P23a_graphic}">
                 <ChildMarker>
                     <P3j type="marker" active="true" pe="P3jpe"/>
                     <U3j type="marker" active="true" pe="U3jpe"/>
                 </ChildMarker>
             </RM_P3a>
-            <RM_P3b type="part" active="true" pe="{0.480007549218388 , -0.767504260777262 , -0.034 , 3.40339204138894 , 0.118618434102643 , 1.4929516146875}" vel="{0 , 0 , 0 , 0 , 0 , 0}" acc="{0 , 0 , 0 , 0 , 0 , 0}" inertia="P3bGamma" graphic_file_path="${P23b_graphic}">
+            <RM_P3b type="part" active="true" pe="{0.612687917796631 , -0.523928467632979 , -0.027 , 3.95072729481438 , 0.0932963591245736 , 1.2607859014032}" vel="{0 , 0 , 0 , 0 , 0 , 0}" acc="{0 , 0 , 0 , 0 , 0 , 0}" inertia="P3bGamma" graphic_file_path="${P23b_graphic}">
                 <ChildMarker>
                     <P3i type="marker" active="true" pe="P3ipe"/>
                     <S3j type="marker" active="true" pe="S3jpe"/>
                 </ChildMarker>
             </RM_P3b>
-            <RM_Thigh type="part" active="true" pe="{0.425397188622954 , -0.789836043411811 , 0 , 5.69187732664766 , 0 , 5.69187732664766}" vel="{0 , 0 , 0 , 0 , 0 , 0}" acc="{0 , 0 , 0 , 0 , 0 , 0}" inertia="ThighGamma" graphic_file_path="${P1b_graphic}">
+            <RM_Thigh type="part" active="true" pe="{0.572855617030647 , -0.554150774224107 , 0 , 5.82232236070737 , 0 , 5.82232236070737}" vel="{0 , 0 , 0 , 0 , 0 , 0}" acc="{0 , 0 , 0 , 0 , 0 , 0}" inertia="ThighGamma" graphic_file_path="${P1b_graphic}">
                 <ChildMarker>
                     <P1i type="marker" active="true" pe="P1ipe"/>
                     <S2i type="marker" active="true" pe="S2ipe"/>
@@ -343,37 +343,37 @@
                     <Sfi type="marker" active="true" pe="Sfipe"/>
                 </ChildMarker>
             </RM_Thigh>
-            <RR_P1a type="part" active="true" pe="{0.05433 , 0 , 0.3253 , 4.41242048000795 , 0.589126097795968 , 0.668788917683135}" vel="{0 , 0 , 0 , 0 , 0 , 0}" acc="{0 , 0 , 0 , 0 , 0 , 0}" inertia="P1aGamma" graphic_file_path="${P1a_graphic}">
+            <RR_P1a type="part" active="true" pe="{0.0762 , 0 , 0.132 , 4.71218713090076 , 1.04738088819825 , 0.649516898854395}" vel="{0 , 0 , 0 , 0 , 0 , 0}" acc="{0 , 0 , 0 , 0 , 0 , 0}" inertia="P1aGamma" graphic_file_path="${P1a_graphic}">
                 <ChildMarker>
                     <P1j type="marker" active="true" pe="P1jpe"/>
                     <U1j type="marker" active="true" pe="U1jpe"/>
                 </ChildMarker>
             </RR_P1a>
-            <RR_P2a type="part" active="true" pe="{0.18140178246717 , 0.0600460184637853 , 0.553394799956647 , 4.61075591279907 , 0.539870701560784 , 0.300542301485025}" vel="{0 , 0 , 0 , 0 , 0 , 0}" acc="{0 , 0 , 0 , 0 , 0 , 0}" inertia="P2aGamma" graphic_file_path="${P23a_graphic}">
+            <RR_P2a type="part" active="true" pe="{0.052425783232547 , 0.117237818837122 , 0.274821848648616 , 4.78958949912063 , 0.981168383931497 , 0.45865173729494}" vel="{0 , 0 , 0 , 0 , 0 , 0}" acc="{0 , 0 , 0 , 0 , 0 , 0}" inertia="P2aGamma" graphic_file_path="${P23a_graphic}">
                 <ChildMarker>
                     <P2j type="marker" active="true" pe="P2jpe"/>
                     <U2j type="marker" active="true" pe="U2jpe"/>
                 </ChildMarker>
             </RR_P2a>
-            <RR_P2b type="part" active="true" pe="{0.312586693716602 , -0.762220108040695 , 0.681595343152072 , 4.61075591279907 , 0.539870701560784 , 0.300542301485025}" vel="{0 , 0 , 0 , 0 , 0 , 0}" acc="{0 , 0 , 0 , 0 , 0 , 0}" inertia="P2bGamma" graphic_file_path="${P23b_graphic}">
+            <RR_P2b type="part" active="true" pe="{0.282955589569569 , -0.523919366962416 , 0.544463251443398 , 4.78958949912063 , 0.981168383931497 , 0.45865173729494}" vel="{0 , 0 , 0 , 0 , 0 , 0}" acc="{0 , 0 , 0 , 0 , 0 , 0}" inertia="P2bGamma" graphic_file_path="${P23b_graphic}">
                 <ChildMarker>
                     <P2i type="marker" active="true" pe="P2ipe"/>
                     <S2j type="marker" active="true" pe="S2jpe"/>
                 </ChildMarker>
             </RR_P2b>
-            <RR_P3a type="part" active="true" pe="{0.315401782467171 , 0.0600460184637851 , 0.321299991742419 , 4.25297681325535 , 0.650221374632063 , 0.600757579169006}" vel="{0 , 0 , 0 , 0 , 0 , 0}" acc="{0 , 0 , 0 , 0 , 0 , 0}" inertia="P3aGamma" graphic_file_path="${P23a_graphic}">
+            <RR_P3a type="part" active="true" pe="{0.211774457528884 , 0.117237818837122 , 0.182821848648617 , 4.64058969000243 , 1.11598862813605 , 0.533265371019748}" vel="{0 , 0 , 0 , 0 , 0 , 0}" acc="{0 , 0 , 0 , 0 , 0 , 0}" inertia="P3aGamma" graphic_file_path="${P23a_graphic}">
                 <ChildMarker>
                     <P3j type="marker" active="true" pe="P3jpe"/>
                     <U3j type="marker" active="true" pe="U3jpe"/>
                 </ChildMarker>
             </RR_P3a>
-            <RR_P3b type="part" active="true" pe="{0.348682673184127 , -0.773384657158319 , 0.625058336605207 , 4.25297681325535 , 0.650221374632063 , 0.600757579169006}" vel="{0 , 0 , 0 , 0 , 0 , 0}" acc="{0 , 0 , 0 , 0 , 0 , 0}" inertia="P3bGamma" graphic_file_path="${P23b_graphic}">
+            <RR_P3b type="part" active="true" pe="{0.329725909734209 , -0.523928807527533 , 0.517471825720166 , 4.64058969000243 , 1.11598862813605 , 0.533265371019748}" vel="{0 , 0 , 0 , 0 , 0 , 0}" acc="{0 , 0 , 0 , 0 , 0 , 0}" inertia="P3bGamma" graphic_file_path="${P23b_graphic}">
                 <ChildMarker>
                     <P3i type="marker" active="true" pe="P3ipe"/>
                     <S3j type="marker" active="true" pe="S3jpe"/>
                 </ChildMarker>
             </RR_P3b>
-            <RR_Thigh type="part" active="true" pe="{0.283057027650631 , -0.791378570859432 , 0.627606614068303 , 4.41242048000795 , 0.589126097795968 , 0.668788917683135}" vel="{0 , 0 , 0 , 0 , 0 , 0}" acc="{0 , 0 , 0 , 0 , 0 , 0}" inertia="ThighGamma" graphic_file_path="${P1b_graphic}">
+            <RR_Thigh type="part" active="true" pe="{0.286431566859457 , -0.554160156509422 , 0.496479793570357 , 4.71218713090076 , 1.04738088819825 , 0.649516898854395}" vel="{0 , 0 , 0 , 0 , 0 , 0}" acc="{0 , 0 , 0 , 0 , 0 , 0}" inertia="ThighGamma" graphic_file_path="${P1b_graphic}">
                 <ChildMarker>
                     <P1i type="marker" active="true" pe="P1ipe"/>
                     <S2i type="marker" active="true" pe="S2ipe"/>
