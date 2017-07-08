@@ -8,6 +8,7 @@
 #include "cross_obstacle.h"
 #include "say_hello.h"
 #include "climb_stairs_v2.h"
+#include "OpenValve.h"
 
 Robots::RobotTypeI rbt;
 
@@ -43,12 +44,12 @@ int main_test(int argc, char *argv[])
 #endif
 
     const double beginEE[]{
-		-0.30,   -0.58,   -0.52,
-		-0.60,   -0.58,    0,
-		-0.30,   -0.58,    0.52,
-		 0.30,   -0.58,   -0.52,
-		 0.60,   -0.58,    0,
-		 0.30,   -0.58,    0.52 };
+		-0.30,   -0.54,   -0.52,
+		-0.60,   -0.54,    0,
+		-0.30,   -0.54,    0.52,
+		 0.30,   -0.54,   -0.52,
+		 0.60,   -0.54,    0,
+		 0.30,   -0.54,    0.52 };
     //const double offset = 0.058;
     //const double beginEE[]{
     //    -0.2828 - offset,   -0.61,   -0.35,
@@ -110,12 +111,14 @@ int main_test(int argc, char *argv[])
 
     cs2Param cs2_param;
 
+    OpenValve ov_param;
+
     rbt.SetPeb(beginPE);
     rbt.SetPee(beginEE);
     //rbt.SetPee(beginPee);
 
-	auto result = rbt.simToAdams("D:\\Lab\\Models\\Adams\\RobotXV\\test.cmd", Robots::walkGait, wk_param, 50);
-    //auto result = rbt.simToAdams("D:\\Lab\\Models\\Adams\\RobotXV\\test.cmd", climbStairsV2Gait, cs2_param, 50);
+	//auto result = rbt.simToAdams("D:\\Lab\\Models\\Adams\\RobotXV\\test.cmd", Robots::walkGait, wk_param, 50);
+    auto result = rbt.simToAdams("D:\\Lab\\Models\\Adams\\RobotXV\\test.cmd", openvalve, ov_param, 50);
 
 	result.saveToTxt("D:\\Lab\\Models\\Adams\\RobotXV\\test");
 
