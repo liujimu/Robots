@@ -9,6 +9,7 @@
 #include "pitch.h"
 #include "say_hello.h"
 #include "draw_love.h"
+#include "adjust_pee.h"
 Robots::RobotTypeI rbt;
 
 int main_test(int argc, char *argv[]);
@@ -35,28 +36,28 @@ int main_test(int argc, char *argv[])
 {
 
 #ifdef WIN32
-    //rbt.loadXml("C:\\Robots\\resource\\Robot_Type_I\\Robot_XIII\\Robot_XIII.xml");
-    rbt.loadXml("C:\\Robots\\resource\\Robot_Type_I\\Robot_VIII\\Robot_VIII.xml");
+    rbt.loadXml("C:\\Robots\\resource\\Robot_Type_I\\Robot_XIII\\Robot_XIII.xml");
+    //rbt.loadXml("C:\\Robots\\resource\\Robot_Type_I\\Robot_VIII\\Robot_VIII.xml");
 #endif
 #ifdef UNIX
     rbt.loadXml("/usr/Robots/resource/Robot_Type_I/Robot_III/Robot_III.xml");
 #endif
 
-    const double beginEE[]{
-        -0.05,   -0.85,  -0.65,
-        -0.45,  -0.85,  -0.2,
-        -0.3,   -0.85,  0.65,
-        0.05,    -0.85,  -0.65,
-        0.45,   -0.85,  -0.2,
-        0.3,    -0.85,  0.65 };
+    //const double beginEE[]{
+    //    -0.05,   -0.85,  -0.65,
+    //    -0.45,  -0.85,  -0.2,
+    //    -0.3,   -0.85,  0.65,
+    //    0.05,    -0.85,  -0.65,
+    //    0.45,   -0.85,  -0.2,
+    //    0.3,    -0.85,  0.65 };
 
-	//const double beginEE[]{
-	//	-0.60,   -0.9,   -0.60,
-	//	-0.80,   -0.9,    0,
-	//	-0.60,   -0.9,    0.60,
-	//	0.60,   -0.9,   -0.60,
-	//	0.80,   -0.9,    0,
-	//	0.60,   -0.9,    0.60 };
+	const double beginEE[]{
+		-0.60,   -0.9,   -0.60,
+		-0.80,   -0.9,    0,
+		-0.60,   -0.9,    0.60,
+		0.60,   -0.9,   -0.60,
+		0.80,   -0.9,    0,
+		0.60,   -0.9,    0.60 };
 
     double beginPE[6]{ 0 };
 
@@ -94,10 +95,15 @@ int main_test(int argc, char *argv[])
 
     dlParam dl_param;
 
+    apParam ap_param;
+    ap_param.totalCount = 1000;
+    ap_param.x = -0.1;
+    ap_param.z = -0.1;
+
     rbt.SetPeb(beginPE);
     rbt.SetPee(beginEE);
 
-	auto result = rbt.simToAdams("D:\\Lab\\Models\\Adams\\RobotVIII\\test.cmd", drawLoveGait, dl_param, 50);
+	auto result = rbt.simToAdams("D:\\Lab\\Models\\Adams\\RobotXIII\\test.cmd", adjustPeeGait, ap_param, 50);
 
 	result.saveToTxt("D:\\Lab\\Models\\Adams\\RobotXIII\\test");
 
