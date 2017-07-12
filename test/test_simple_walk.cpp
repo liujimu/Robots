@@ -51,13 +51,20 @@ int main_test(int argc, char *argv[])
     //    0.45,   -0.85,  -0.2,
     //    0.3,    -0.85,  0.65 };
 
-	const double beginEE[]{
-		-0.60,   -0.9,   -0.60,
-		-0.80,   -0.9,    0,
-		-0.60,   -0.9,    0.60,
-		0.60,   -0.9,   -0.60,
-		0.80,   -0.9,    0,
-		0.60,   -0.9,    0.60 };
+    const double beginEE[]{
+        -0.60,   -0.9,   -0.60,
+        -0.80,   -0.9,    0,
+        -0.60,   -0.9,    0.60,
+        0.60,   -0.9,   -0.60,
+        0.80,   -0.9,    0,
+        0.60,   -0.9,    0.60 };
+    //const double beginEE[]{
+    //    -0.70,   -0.9,   -0.60,
+    //    -0.90,   -0.9,    0,
+    //    -0.70,   -0.9,    0.60,
+    //    0.70,   -0.9,   -0.60,
+    //    0.90,   -0.9,    0,
+    //    0.90,   -0.9,    0.60 };
 
     double beginPE[6]{ 0 };
 
@@ -70,9 +77,9 @@ int main_test(int argc, char *argv[])
 
     mbParam mb_param;
     mb_param.totalCount = 1000;
-    mb_param.z = -0.12;
-    mb_param.y = 0.04;
-    mb_param.pitch = PI * 25 / 180;
+    mb_param.z = 0;
+    mb_param.y = 0;
+    mb_param.pitch = PI * 18 / 180;
 
     swParam sw_param;
     sw_param.totalCount = 4000;
@@ -103,7 +110,7 @@ int main_test(int argc, char *argv[])
     rbt.SetPeb(beginPE);
     rbt.SetPee(beginEE);
 
-	auto result = rbt.simToAdams("D:\\Lab\\Models\\Adams\\RobotXIII\\test.cmd", adjustPeeGait, ap_param, 50);
+	auto result = rbt.simToAdams("D:\\Lab\\Models\\Adams\\RobotXIII\\test.cmd", moveBodyGait, mb_param, 50);
 
 	result.saveToTxt("D:\\Lab\\Models\\Adams\\RobotXIII\\test");
 
