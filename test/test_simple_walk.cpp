@@ -88,7 +88,8 @@ int main_test(int argc, char *argv[])
 
     mbParam mb_param;
     mb_param.totalCount = 1000;
-    mb_param.x = 0.1;
+    mb_param.pitch = PI * 20 / 180;
+    mb_param.y = -0.05;
 
     swParam sw_param;
     sw_param.totalCount = 4000;
