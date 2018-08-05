@@ -9,6 +9,7 @@
 #include "say_hello.h"
 #include "climb_stairs_v2.h"
 #include "OpenValve.h"
+#include "quadruped_gait.h"
 
 Robots::RobotTypeI rbt;
 
@@ -50,6 +51,13 @@ int main_test(int argc, char *argv[])
 		 0.30,   -0.58,   -0.52,
 		 0.60,   -0.58,    0,
 		 0.30,   -0.58,    0.52 };
+    //const double beginEE[]{
+    //    -0.25,   -0.63,   -0.433,
+    //    -0.30,   -0.63,    0,
+    //    -0.25,   -0.63,    0.433,
+    //     0.25,   -0.63,   -0.433,
+    //     0.30,   -0.63,    0,
+    //     0.25,   -0.63,    0.433 };
     //const double offset = 0.058;
     //const double beginEE[]{
     //    -0.2828 - offset,   -0.61,   -0.35,
@@ -83,13 +91,13 @@ int main_test(int argc, char *argv[])
     wk_param.n = 2;
     wk_param.beta = 0;
     wk_param.alpha = 0;
-    wk_param.d = 0.5;
-	wk_param.h = 0.05;
+    wk_param.d = 0.3;
+	wk_param.h = 0.03;
 
     mbParam mb_param;
     mb_param.totalCount = 1000;
-    mb_param.pitch = PI * 20 / 180;
-    mb_param.y = -0.05;
+    //mb_param.pitch = PI * 20 / 180;
+    mb_param.y = 0.05;
 
     swParam sw_param;
     sw_param.totalCount = 4000;
@@ -113,16 +121,18 @@ int main_test(int argc, char *argv[])
 
     OpenValve ov_param;
 
+    qgParam qg_param;
+
     rbt.SetPeb(beginPE);
     rbt.SetPee(beginEE);
     //rbt.SetPee(beginPee);
 
-	//auto result = rbt.simToAdams("D:\\Lab\\Models\\Adams\\RobotXV\\test.cmd", Robots::walkGait, wk_param, 50);
-    auto result = rbt.simToAdams("D:\\Lab\\Models\\Adams\\RobotXV\\test.cmd", moveBodyGait, mb_param, 50);
+	//auto result = rbt.simToAdams("D:\\Lab\\Models\\Adams\\RobotEDU2\\test.cmd", Robots::walkGait, wk_param, 50);
+    auto result = rbt.simToAdams("D:\\Lab\\Models\\Adams\\RobotEDU2\\test.cmd", quadrupedGait, qg_param, 50);
 
-	result.saveToTxt("D:\\Lab\\Models\\Adams\\RobotXV\\test");
+	result.saveToTxt("D:\\Lab\\Models\\Adams\\RobotEDU2\\test");
 
-	rbt.saveXml("D:\\Lab\\Models\\Adams\\RobotXV\\test.xml");
+	rbt.saveXml("D:\\Lab\\Models\\Adams\\RobotEDU2\\test.xml");
 
     /*
     Robots::WalkParam wk_param;
