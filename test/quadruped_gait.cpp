@@ -76,17 +76,18 @@ auto quadrupedGait(aris::dynamic::Model &model, const aris::dynamic::PlanParamBa
 
     double state1Pee[18]; //调整中间腿
     std::copy(beginPee, beginPee + 18, state1Pee);
-    state1Pee[3] += param.footOffset;
-    state1Pee[12] -= param.footOffset;
-    state1Pee[5] -= param.footOffset;
-    state1Pee[14] -= param.footOffset;
+    state1Pee[3] += param.footInnerOffset;
+    state1Pee[5] -= param.footForwardOffset;
+    state1Pee[12] -= param.footInnerOffset;
+    state1Pee[14] -= param.footForwardOffset;
 
     double state2Pee[18]; //举起前腿
     std::copy(state1Pee, state1Pee + 18, state2Pee);
     for (int i = 0; i < 6; i += 3)
     {
+        state2Pee[3 * i] = -0.1 * pow(-1, i);
         state2Pee[3 * i + 1] = param.bodyUp - footDist * std::cos(2 * param.bodyPitch + theta);
-        state2Pee[3 * i + 2] = -footDist * std::sin(2 * param.bodyPitch + theta) + targetPeb[2];
+        state2Pee[3 * i + 2] = -footDist * std::sin(2 * param.bodyPitch + theta) + targetPeb[2] + 0.1;
     }
     static double lastStepPee[18]; //上一步结束时足尖位置
     static double lastStepPeb[6];
@@ -103,9 +104,9 @@ auto quadrupedGait(aris::dynamic::Model &model, const aris::dynamic::PlanParamBa
         std::copy(beginPee, beginPee + 18, Pee);
         for (int i = 1; i < 6; i += 3)
         {
-            Pee[3 * i] -= std::pow(-1, i) * param.footOffset * (1 - std::cos(s)) / 2;
+            Pee[3 * i] -= std::pow(-1, i) * param.footInnerOffset * (1 - std::cos(s)) / 2;
             Pee[3 * i + 1] += param.stepHeight * std::sin(s);
-            Pee[3 * i + 2] -= param.footOffset * (1 - std::cos(s)) / 2;
+            Pee[3 * i + 2] -= param.footForwardOffset * (1 - std::cos(s)) / 2;
         }
     }
 
@@ -118,46 +119,89 @@ auto quadrupedGait(aris::dynamic::Model &model, const aris::dynamic::PlanParamBa
             Peb[i] = targetPeb[i] * s;
         }
         std::copy(state1Pee, state1Pee + 18, Pee);
-        for (int i = 0; i < 6; i += 3)
+        for (int i = 0; i < 18; ++i)
         {
-            Pee[3 * i + 1] = state1Pee[3 * i + 1] * (1 - s) + state2Pee[3 * i + 1] * s;
-            Pee[3 * i + 2] = state1Pee[3 * i + 2] * (1 - s) + state2Pee[3 * i + 2] * s;
+            Pee[i] = state1Pee[i] * (1 - s) + state2Pee[i] * s;
         }
     }
 
     //第三步：行走
-    else if (param.count < (2 + 4 * n) * param.totalCount)
+    else if (param.count < (2 + 8 * n) * param.totalCount)
     {
         const int stepOrder[4]{ 2,1,5,4 };
-        const int step_id = (param.count / param.totalCount - 2) % 4;
-        int leg_id = stepOrder[step_id]; //确定当前迈腿序号
+        const int step_id = (param.count / param.totalCount - 2) % 8; //step_id从0到7
+        int leg_id = stepOrder[step_id / 2]; //确定当前迈腿序号
         int period_count = param.count % param.totalCount;
-        const double s = -(PI / 2) * cos(PI * (period_count + 1) / param.totalCount) + PI / 2;//s 从0到PI. 
+        const double s = -(PI / 2) * cos(PI * (period_count + 1) / param.totalCount) + PI / 2; //s从0到PI. 
 
-        //规划身体位置
         std::copy(lastStepPeb, lastStepPeb + 6, Peb);
-        Peb[2] -= step_id % 2 * param.stepLength / 2 * (1 - std::cos(s)) / 2;
-
-
-        //规划足尖位置
         std::copy(lastStepPee, lastStepPee + 18, Pee);
-        for (int i = 0; i < 6; i += 3)
+        
+        //规划身体位置
+        if (step_id % 2 == 1)
         {
-            Pee[3 * i + 2] -= step_id % 2 * param.stepLength / 2 * (1 - std::cos(s)) / 2;
+            double dx, dy, dz;
+            switch (step_id)
+            {
+            case 1:
+                dx = 0.1;
+                dy = -0.02;
+                dz = 0.0;
+                break;
+            case 3:
+                dx = -0.1;
+                dy = 0;
+                dz = -0.03;
+                break;
+            case 5:
+                dx = -0.1;
+                dy = 0;
+                dz = 0;
+                break;
+            case 7:
+                dx = 0.1;
+                dy = 0.02;
+                dz = -0.03;
+                break;
+            default:
+                dx = 0;
+                dy = 0;
+                dz = 0;
+                break;
+            }
+            Peb[0] += dx * (1 - std::cos(s)) / 2;
+            Peb[1] += dy * (1 - std::cos(s)) / 2;
+            Peb[2] += dz * (1 - std::cos(s)) / 2;
+            //规划两条前腿
+            for (int i = 0; i < 6; i += 3)
+            {
+                Pee[3 * i] += dx * (1 - std::cos(s)) / 2;
+                Pee[3 * i + 1] += dy * (1 - std::cos(s)) / 2;
+                Pee[3 * i + 2] += dz * (1 - std::cos(s)) / 2;
+            }
+            if (period_count == param.totalCount - 1)
+            {
+                lastStepPeb[0] += dx;
+                lastStepPeb[1] += dy;
+                lastStepPeb[2] += dz;
+                for (int i = 0; i < 6; i += 3)
+                {
+                    lastStepPee[3 * i] += dx;
+                    lastStepPee[3 * i + 1] += dy;
+                    lastStepPee[3 * i + 2] += dz;
+                }
+            }
         }
 
-        Pee[3 * leg_id + 1] += param.stepHeight * std::sin(s);
-        Pee[3 * leg_id + 2] -= param.stepLength * (1 - std::cos(s)) / 2;
-
-        if (period_count == param.totalCount - 1)
+        //规划足尖位置
+        if (step_id % 2 == 0)
         {
-            lastStepPee[3 * leg_id + 2] -= param.stepLength;
-            lastStepPeb[2] -= param.stepLength / 4;
-            rt_printf("count: %d\n", param.count);
-            rt_printf("lastStepPee: %f %f %f %f %f %f\n",
-                lastStepPee[2], lastStepPee[5], lastStepPee[8],
-                lastStepPee[11], lastStepPee[14], lastStepPee[17]);
-
+            Pee[3 * leg_id + 1] += param.stepHeight * std::sin(s);
+            Pee[3 * leg_id + 2] -= param.stepLength * (1 - std::cos(s)) / 2;
+            if (period_count == param.totalCount - 1)
+            {
+                lastStepPee[3 * leg_id + 2] -= param.stepLength;
+            }
         }
     }
 /*
@@ -193,6 +237,6 @@ auto quadrupedGait(aris::dynamic::Model &model, const aris::dynamic::PlanParamBa
     robot.SetPeb(Peb, beginMak);
     robot.SetPee(Pee, beginMak);
 
-    return (2 + 4 * n) * param.totalCount - param.count - 1;
+    return (2 + 8 * n) * param.totalCount - param.count - 1;
     //return 2 * param.totalCount - param.count - 1;
 }
