@@ -44,14 +44,21 @@
 
 struct qgParam final :public aris::server::GaitParamBase
 {
-    std::int32_t totalCount{ 1000 };
-    double bodyUp{ 0.0 };
-    double bodyBack{ 0.1 };
-    double bodyPitch{ PI / 36 };
-    double footForwardOffset{ 0.2 };
-    double footInnerOffset{ 0.29 };
-    double stepLength{ 0.06 };
-    double stepHeight{ 0.04 };
+    std::int32_t total_count{ 500 };
+    double body_up{ 0.0 };
+    double body_back{ 0.14 };
+    double body_pitch{ PI / 36 };
+    double front_foot_upward_offset{ 0.05 };
+    double front_foot_inner_offset{ 0.2 };
+    double front_foot_upward_offset_2{ 0.05 };
+    double front_foot_backward_offset_2{ 0.15 };
+    double middle_foot_forward_offset{ 0.18 };
+    double middle_foot_inner_offset{ 0.25 };
+    double rear_foot_outer_offset{ 0.05 };
+    double body_down{ 0.04 };
+    double body_sidesway{ 0.1 };
+    double walk_step_length{ 0.06 };
+    double walk_step_height{ 0.03 };
     std::int32_t n{ 1 };
 };
 
