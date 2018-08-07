@@ -4,21 +4,16 @@
 
 /*将以下注释代码添加到xml文件*/
 /*
-            <sh default="sh_param">
-                <sh_param type="group">
+            <qg default="qg_param">
+                <qg_param type="group">
                     <totalCount abbreviation="t" type="int" default="2000"/>
                     <stepLength abbreviation="d" type="double" default="0.2"/>
                     <stepHeight abbreviation="h" type="double" default="0.05"/>
                     <bodyUp abbreviation="u" type="double" default="0.04"/>
                     <bodyPitch abbreviation="p" type="double" default="20"/>
-                    <helloAmplitude abbreviation="a" type="double" default="0.1"/>
-                    <helloTimes abbreviation="n" type="int" default="1"/>
-					<direction type="unique" default="backward">
-                        <forward abbreviation="f"/>
-                        <backward abbreviation="b"/>
-					</direction>
-                </sh_param>
-            </sh>
+                    <n abbreviation="n" type="int" default="1"/>
+                </qg_param>
+            </qg>
 */
 
 #ifndef QUADRUPED_GAIT_H

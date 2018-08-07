@@ -24,15 +24,55 @@ auto quadrupedGaitParse(const std::string &cmd, const std::map<std::string, std:
         {
             param.body_up = std::stod(i.second);
         }
+        else if (i.first == "bodyBack")
+        {
+            param.body_back = std::stod(i.second);
+        }
         else if (i.first == "bodyPitch")
         {
             param.body_pitch = std::stod(i.second) / 180 * PI;
         }
-        else if (i.first == "stepLength")
+        else if (i.first == "frontFootUpwardOffset")
+        {
+            param.front_foot_upward_offset = std::stod(i.second);
+        }
+        else if (i.first == "frontFootInnerOffset")
+        {
+            param.front_foot_inner_offset = std::stod(i.second);
+        }
+        else if (i.first == "frontFootUpwardOffset2")
+        {
+            param.front_foot_upward_offset_2 = std::stod(i.second);
+        }
+        else if (i.first == "frontFootBackwardOffset2")
+        {
+            param.front_foot_backward_offset_2 = std::stod(i.second);
+        }
+        else if (i.first == "middleFootForwardOffset")
+        {
+            param.middle_foot_forward_offset = std::stod(i.second);
+        }
+        else if (i.first == "middleFootInnerOffset")
+        {
+            param.middle_foot_inner_offset = std::stod(i.second);
+        }
+        else if (i.first == "rearFootOuterOffset")
+        {
+            param.rear_foot_outer_offset = std::stod(i.second);
+        }
+        else if (i.first == "bodyDown")
+        {
+            param.body_down = std::stod(i.second);
+        }
+        else if (i.first == "bodySidesway")
+        {
+            param.body_sidesway = std::stod(i.second);
+        }
+        else if (i.first == "walkStepLength")
         {
             param.walk_step_length = std::stod(i.second);
         }
-        else if (i.first == "stepHeight")
+        else if (i.first == "walkStepHeight")
         {
             param.walk_step_height = std::stod(i.second);
         }
@@ -74,36 +114,11 @@ auto quadrupedGait(aris::dynamic::Model &model, const aris::dynamic::PlanParamBa
     std::copy(lastStepPeb, lastStepPeb + 6, Peb);
     std::copy(lastStepPee, lastStepPee + 18, Pee);
 
-    //double footDist = std::sqrt(std::pow(beginPee[2], 2) + std::pow(beginPee[1] - param.body_up, 2));
-    //double theta = std::atan2(std::fabs(beginPee[2]), std::fabs(beginPee[1]) + param.body_up);
-
-    //double targetPeb[6];
-    //std::fill(targetPeb, targetPeb + 6, 0);
-    //targetPeb[1] = param.body_up;
-    //targetPeb[4] = param.body_pitch;
-    //targetPeb[2] = param.body_back;
-
-    //double state1Pee[18]; //调整中间腿
-    //std::copy(beginPee, beginPee + 18, state1Pee);
-    //state1Pee[3] += param.middle_foot_inner_offset;
-    //state1Pee[5] -= param.middle_foot_forward_offset;
-    //state1Pee[12] -= param.middle_foot_inner_offset;
-    //state1Pee[14] -= param.middle_foot_forward_offset;
-
-    //double state2Pee[18]; //举起前腿
-    //std::copy(state1Pee, state1Pee + 18, state2Pee);
-    //for (int i = 0; i < 6; i += 3)
-    //{
-    //    state2Pee[3 * i] = -0.1 * pow(-1, i);
-    //    state2Pee[3 * i + 1] = param.body_up - footDist * std::cos(2 * param.body_pitch + theta);
-    //    state2Pee[3 * i + 2] = -footDist * std::sin(2 * param.body_pitch + theta) + targetPeb[2] + 0.1;
-    //}
-
     //前两步：调整后腿
     if (step_id < 2)
     {
-        double dx = -param.rear_foot_outer_offset * pow(-1, step_id); //step_id==0,dx<0; step_id==1,dx>0
-        int leg_id = 3 * step_id + 2;
+        int leg_id = 3 * (step_id % 2) + 2;
+        double dx = -param.rear_foot_outer_offset * pow(-1, leg_id); //leg_id==2,dx<0; leg_id==5,dx>0
         Pee[3 * leg_id] += dx * (1 - std::cos(s)) / 2;
         Pee[3 * leg_id + 1] += param.walk_step_height * std::sin(s);
         if (period_count == total_count - 1)
@@ -131,7 +146,7 @@ auto quadrupedGait(aris::dynamic::Model &model, const aris::dynamic::PlanParamBa
         }
     }
 
-    //第四步：前腿夹取对象
+    //第四步：前腿夹取物块
     else if (step_id == 3)
     {
         //规划前腿
@@ -252,39 +267,85 @@ auto quadrupedGait(aris::dynamic::Model &model, const aris::dynamic::PlanParamBa
             }
         }
     }
-/*
-    //第四步：收前腿，恢复身体姿态
-    else if (param.count < (3 + 4 * n) * param.totalCount)
+
+    //第七步：恢复身体，前腿放下物块
+    else if (step_id == 5 + 8 * n)
     {
-        const double s = -0.5 * std::cos(PI * (param.count + 1 - (2 + n) * param.totalCount) / param.totalCount) + 0.5; //s从0到1.
-        for (int i = 0; i < 6; ++i)
+        //规划身体
+        Peb[1] -= param.body_up*(1 - std::cos(s)) / 2;
+        Peb[2] -= param.body_back*(1 - std::cos(s)) / 2;
+        Peb[4] -= param.body_pitch*(1 - std::cos(s)) / 2;
+        //规划前腿
+        for (int i = 0; i < 18; i += 9)
         {
-            Peb[i] = targetPeb[i] * (1 - s);
+            Pee[i + 1] -= param.front_foot_upward_offset_2 *(1 - std::cos(s)) / 2;
+            Pee[i + 2] -= param.front_foot_backward_offset_2*(1 - std::cos(s)) / 2;
         }
-        std::copy(state2Pee, state2Pee + 18, Pee);
-        for (int i = 0; i < 6; i += 3)
+        if (period_count == total_count - 1)
         {
-            Pee[3 * i + 1] = state2Pee[3 * i + 1] * (1 - s) + state1Pee[3 * i + 1] * s;
-            Pee[3 * i + 2] = state2Pee[3 * i + 2] * (1 - s) + state1Pee[3 * i + 2] * s;
+            lastStepPeb[1] -= param.body_up;
+            lastStepPeb[2] -= param.body_back;
+            lastStepPeb[4] -= param.body_pitch;
+            lastStepPee[1] -= param.front_foot_upward_offset_2;
+            lastStepPee[2] -= param.front_foot_backward_offset_2;
+            lastStepPee[10] -= param.front_foot_upward_offset_2;
+            lastStepPee[11] -= param.front_foot_backward_offset_2;
         }
     }
 
-    //第五步：收中间腿
-    else
+    //第八步：前腿松开物块并落地
+    else if (step_id == 6 + 8 * n)
     {
-        const double s = -PI / 2 * std::cos(PI * (param.count + 1 - (3 + n) * param.totalCount) / param.totalCount) + PI / 2; //s从0到PI.
-        std::copy(state1Pee, state1Pee + 18, Pee);
-        for (int i = 1; i < 6; i += 3)
+        //规划前腿
+        for (int i = 0; i < 18; i += 9)
         {
-            Pee[3 * i + 1] += param.stepHeight * std::sin(s);
-            Pee[3 * i + 2] += param.footOffset * (1 - std::cos(s)) / 2;
+            double dx = param.front_foot_inner_offset * pow(-1, i); //i==0,+; i==9,-
+            Pee[i] -= dx *(1 - std::cos(s)) / 2;
+            Pee[i + 1] -= param.front_foot_upward_offset *(1 - std::cos(s)) / 2;
+        }
+        if (period_count == total_count - 1)
+        {
+            lastStepPee[0] -= param.front_foot_inner_offset;
+            lastStepPee[1] -= param.front_foot_upward_offset;
+            lastStepPee[9] += param.front_foot_inner_offset;
+            lastStepPee[10] -= param.front_foot_upward_offset;
         }
     }
-*/
+
+    //第九步：恢复中间腿
+    else if (step_id == 7 + 8 * n)
+    {
+        for (int i = 0; i < 18; i += 9)
+        {
+            double dx = param.middle_foot_inner_offset * pow(-1, i); //i==0,+; i==9,-
+            Pee[i + 3] -= dx  * (1 - std::cos(s)) / 2;
+            Pee[i + 4] += param.walk_step_height * std::sin(s);
+            Pee[i + 5] += param.middle_foot_forward_offset * (1 - std::cos(s)) / 2;
+        }
+        if (period_count == total_count - 1)
+        {
+            lastStepPee[3] -= param.middle_foot_inner_offset;
+            lastStepPee[5] += param.middle_foot_forward_offset;
+            lastStepPee[12] += param.middle_foot_inner_offset;
+            lastStepPee[14] += param.middle_foot_forward_offset;
+        }
+    }
+
+    //最后两步：调整后腿
+    if (step_id < 10 + 8 * n)
+    {
+        int leg_id = 3 * (step_id % 2) + 2;
+        double dx = -param.rear_foot_outer_offset * pow(-1, leg_id); //leg_id==2,dx<0; leg_id==5,dx>0
+        Pee[3 * leg_id] -= dx * (1 - std::cos(s)) / 2;
+        Pee[3 * leg_id + 1] += param.walk_step_height * std::sin(s);
+        if (period_count == total_count - 1)
+        {
+            lastStepPee[3 * leg_id] -= dx;
+        }
+    }
 
     robot.SetPeb(Peb, beginMak);
     robot.SetPee(Pee, beginMak);
 
-    return (5 + 8 * n) * param.total_count - param.count - 1;
-    //return 2 * param.totalCount - param.count - 1;
+    return (10 + 8 * n) * param.total_count - param.count - 1;
 }
