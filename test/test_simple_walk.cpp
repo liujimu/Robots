@@ -37,7 +37,7 @@ int main_test(int argc, char *argv[])
 {
 
 #ifdef WIN32
-    rbt.loadXml("C:\\Robots\\resource\\Robot_Type_I\\Robot_XV\\Robot_XV.xml");
+    rbt.loadXml("C:\\Robots\\resource\\Robot_Type_I\\Robot_EDU2\\RobotEDU2_re.xml");
     //rbt.loadXml("C:\\Robots\\resource\\Robot_Type_I\\Robot_VIII\\Robot_VIII.xml");
 #endif
 #ifdef UNIX
@@ -128,7 +128,7 @@ int main_test(int argc, char *argv[])
     //rbt.SetPee(beginPee);
 
 	//auto result = rbt.simToAdams("D:\\Lab\\Models\\Adams\\RobotEDU2\\test.cmd", Robots::walkGait, wk_param, 50);
-    auto result = rbt.simToAdams("D:\\Lab\\Models\\Adams\\RobotEDU2\\test.cmd", quadrupedGait, qg_param, 50);
+    auto result = rbt.simToAdams("D:\\Lab\\Models\\Adams\\RobotEDU2\\test2.cmd", quadrupedGait, qg_param, 50);
 
 	result.saveToTxt("D:\\Lab\\Models\\Adams\\RobotEDU2\\test");
 

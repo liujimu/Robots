@@ -32,42 +32,42 @@ auto quadrupedGaitParse(const std::string &cmd, const std::map<std::string, std:
         {
             param.body_pitch = std::stod(i.second) / 180 * PI;
         }
-        else if (i.first == "frontFootUpwardOffset")
-        {
-            param.front_foot_upward_offset = std::stod(i.second);
-        }
+        //else if (i.first == "frontFootUpwardOffset")
+        //{
+        //    param.front_foot_upward_offset = std::stod(i.second);
+        //}
         else if (i.first == "frontFootInnerOffset")
         {
             param.front_foot_inner_offset = std::stod(i.second);
         }
-        else if (i.first == "frontFootUpwardOffset2")
-        {
-            param.front_foot_upward_offset_2 = std::stod(i.second);
-        }
-        else if (i.first == "frontFootBackwardOffset2")
-        {
-            param.front_foot_backward_offset_2 = std::stod(i.second);
-        }
+        //else if (i.first == "frontFootUpwardOffset2")
+        //{
+        //    param.front_foot_upward_offset_2 = std::stod(i.second);
+        //}
+        //else if (i.first == "frontFootBackwardOffset2")
+        //{
+        //    param.front_foot_backward_offset_2 = std::stod(i.second);
+        //}
         else if (i.first == "middleFootForwardOffset")
         {
             param.middle_foot_forward_offset = std::stod(i.second);
         }
-        else if (i.first == "middleFootInnerOffset")
-        {
-            param.middle_foot_inner_offset = std::stod(i.second);
-        }
+        //else if (i.first == "middleFootInnerOffset")
+        //{
+        //    param.middle_foot_inner_offset = std::stod(i.second);
+        //}
         else if (i.first == "rearFootOuterOffset")
         {
             param.rear_foot_outer_offset = std::stod(i.second);
         }
-        else if (i.first == "bodyDown")
-        {
-            param.body_down = std::stod(i.second);
-        }
-        else if (i.first == "bodySidesway")
-        {
-            param.body_sidesway = std::stod(i.second);
-        }
+        //else if (i.first == "bodyDown")
+        //{
+        //    param.body_down = std::stod(i.second);
+        //}
+        //else if (i.first == "bodySidesway")
+        //{
+        //    param.body_sidesway = std::stod(i.second);
+        //}
         else if (i.first == "walkStepLength")
         {
             param.walk_step_length = std::stod(i.second);
@@ -130,6 +130,7 @@ auto quadrupedGait(aris::dynamic::Model &model, const aris::dynamic::PlanParamBa
     //第三步：迈中间腿
     else if (step_id == 2)
     {
+        Peb[1] += param.body_up*(1 - std::cos(s)) / 2;
         for (int i = 0; i < 18; i += 9)
         {
             double dx = param.middle_foot_inner_offset * pow(-1, i); //i==0,+; i==9,-
@@ -139,6 +140,7 @@ auto quadrupedGait(aris::dynamic::Model &model, const aris::dynamic::PlanParamBa
         }
         if (period_count == total_count - 1)
         {
+            lastStepPeb[1] += param.body_up;
             lastStepPee[3] += param.middle_foot_inner_offset;
             lastStepPee[5] -= param.middle_foot_forward_offset;
             lastStepPee[12] -= param.middle_foot_inner_offset;
@@ -169,7 +171,6 @@ auto quadrupedGait(aris::dynamic::Model &model, const aris::dynamic::PlanParamBa
     else if (step_id == 4)
     {
         //规划身体
-        Peb[1] += param.body_up*(1 - std::cos(s)) / 2;
         Peb[2] += param.body_back*(1 - std::cos(s)) / 2;
         Peb[4] += param.body_pitch*(1 - std::cos(s)) / 2;
         //规划前腿
@@ -180,7 +181,6 @@ auto quadrupedGait(aris::dynamic::Model &model, const aris::dynamic::PlanParamBa
         }
         if (period_count == total_count - 1)
         {
-            lastStepPeb[1] += param.body_up;
             lastStepPeb[2] += param.body_back;
             lastStepPeb[4] += param.body_pitch;
             lastStepPee[1] += param.front_foot_upward_offset_2;
@@ -217,14 +217,14 @@ auto quadrupedGait(aris::dynamic::Model &model, const aris::dynamic::PlanParamBa
                 dy = 0;
                 dz = 0;
                 break;
-            case 6:
-                dx = 0;
-                dy = param.body_down;
-                dz = 0;
-                break;
+            //case 6:
+            //    dx = 0;
+            //    dy = param.body_down;
+            //    dz = 0;
+            //    break;
             case 7:
                 dx = param.body_sidesway;
-                dy = 0;
+                dy = param.body_down;
                 dz = -param.walk_step_length / 2;
                 break;
             default:
@@ -272,7 +272,6 @@ auto quadrupedGait(aris::dynamic::Model &model, const aris::dynamic::PlanParamBa
     else if (step_id == 5 + 8 * n)
     {
         //规划身体
-        Peb[1] -= param.body_up*(1 - std::cos(s)) / 2;
         Peb[2] -= param.body_back*(1 - std::cos(s)) / 2;
         Peb[4] -= param.body_pitch*(1 - std::cos(s)) / 2;
         //规划前腿
@@ -283,7 +282,6 @@ auto quadrupedGait(aris::dynamic::Model &model, const aris::dynamic::PlanParamBa
         }
         if (period_count == total_count - 1)
         {
-            lastStepPeb[1] -= param.body_up;
             lastStepPeb[2] -= param.body_back;
             lastStepPeb[4] -= param.body_pitch;
             lastStepPee[1] -= param.front_foot_upward_offset_2;
@@ -315,6 +313,7 @@ auto quadrupedGait(aris::dynamic::Model &model, const aris::dynamic::PlanParamBa
     //第九步：恢复中间腿
     else if (step_id == 7 + 8 * n)
     {
+        Peb[1] -= param.body_up*(1 - std::cos(s)) / 2;
         for (int i = 0; i < 18; i += 9)
         {
             double dx = param.middle_foot_inner_offset * pow(-1, i); //i==0,+; i==9,-
@@ -324,6 +323,7 @@ auto quadrupedGait(aris::dynamic::Model &model, const aris::dynamic::PlanParamBa
         }
         if (period_count == total_count - 1)
         {
+            lastStepPeb[1] -= param.body_up;
             lastStepPee[3] -= param.middle_foot_inner_offset;
             lastStepPee[5] += param.middle_foot_forward_offset;
             lastStepPee[12] += param.middle_foot_inner_offset;
@@ -332,7 +332,7 @@ auto quadrupedGait(aris::dynamic::Model &model, const aris::dynamic::PlanParamBa
     }
 
     //最后两步：调整后腿
-    if (step_id < 10 + 8 * n)
+    else if (step_id < 10 + 8 * n)
     {
         int leg_id = 3 * (step_id % 2) + 2;
         double dx = -param.rear_foot_outer_offset * pow(-1, leg_id); //leg_id==2,dx<0; leg_id==5,dx>0
@@ -342,6 +342,13 @@ auto quadrupedGait(aris::dynamic::Model &model, const aris::dynamic::PlanParamBa
         {
             lastStepPee[3 * leg_id] -= dx;
         }
+    }
+
+    if (period_count == total_count - 1)
+    {
+        rt_printf("count: %d\n", param.count);
+        rt_printf("Peb: %f %f %f %f %f %f\n",Peb[0],Peb[1],Peb[2],Peb[3],Peb[4],Peb[5]);
+        rt_printf("Pee: %f %f %f %f %f %f\n", Pee[1], Pee[4], Pee[7], Pee[10], Pee[13], Pee[16]);
     }
 
     robot.SetPeb(Peb, beginMak);
