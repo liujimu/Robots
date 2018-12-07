@@ -551,18 +551,32 @@
                     <totalCount abbreviation="t" type="int" default="1000"/>
                 </mwr_param>
             </mwr>
-	    <bb default="bb_param">
-                <bb_param type="group">
-                    <distance abbreviation="d" type="double" default="0.1"/>
-                    <totalCount abbreviation="t" type="int" default="1000"/>
-                    <n abbreviation="n" type="int" default="2"/>
-                    <state_param type="unique">
-                        <init abbreviation="i"/>
-                        <balance abbreviation="b"/>
-                        <stop abbreviation="s"/>
-                    </state_param>
-	        </bb_param>
-	    </bb>
+			<bb default="bb_param">
+					<bb_param type="group">
+						<distance abbreviation="d" type="double" default="0.1"/>
+						<totalCount abbreviation="t" type="int" default="1000"/>
+						<n abbreviation="n" type="int" default="2"/>
+						<state_param type="unique">
+							<init abbreviation="i"/>
+							<balance abbreviation="b"/>
+							<stop abbreviation="s"/>
+						</state_param>
+				</bb_param>
+			</bb>
+            <qg default="qg_param">
+                <qg_param type="group">
+                    <totalCount abbreviation="t" type="int" default="2000"/>
+                    <bodyUp abbreviation="u" type="double" default="0.03"/>
+                    <bodyBack abbreviation="b" type="double" default="0.14"/>
+                    <bodyPitch abbreviation="p" type="double" default="5"/>
+                    <frontFootInnerOffset abbreviation="f" type="double" default="0.2"/>
+                    <middleFootForwardOffset abbreviation="m" type="double" default="0.18"/>
+                    <rearFootOuterOffset abbreviation="r" type="double" default="0.1"/>
+                    <walkStepLength abbreviation="d" type="double" default="0.08"/>
+                    <walkStepHeight abbreviation="h" type="double" default="0.03"/>
+                    <n abbreviation="n" type="int" default="1"/>
+                </qg_param>
+            </qg>			
             <ro/>
         </Commands>
     </Server>

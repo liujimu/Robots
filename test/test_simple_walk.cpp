@@ -37,20 +37,27 @@ int main_test(int argc, char *argv[])
 {
 
 #ifdef WIN32
-    rbt.loadXml("C:\\Robots\\resource\\Robot_Type_I\\Robot_EDU2\\RobotEDU2_re.xml");
-    //rbt.loadXml("C:\\Robots\\resource\\Robot_Type_I\\Robot_VIII\\Robot_VIII.xml");
+    //rbt.loadXml("C:\\Robots\\resource\\Robot_Type_I\\Robot_EDU2\\RobotEDU2_re.xml");
+    rbt.loadXml("C:\\Robots\\resource\\Robot_Type_I\\Robot_II\\Robot_II.xml");
 #endif
 #ifdef UNIX
     rbt.loadXml("/usr/Robots/resource/Robot_Type_I/Robot_III/Robot_III.xml");
 #endif
 
+  //  const double beginEE[]{
+		//-0.30,   -0.58,   -0.52,
+		//-0.60,   -0.58,    0,
+		//-0.30,   -0.58,    0.52,
+		// 0.30,   -0.58,   -0.52,
+		// 0.60,   -0.58,    0,
+		// 0.30,   -0.58,    0.52 };
     const double beginEE[]{
-		-0.30,   -0.58,   -0.52,
-		-0.60,   -0.58,    0,
-		-0.30,   -0.58,    0.52,
-		 0.30,   -0.58,   -0.52,
-		 0.60,   -0.58,    0,
-		 0.30,   -0.58,    0.52 };
+        -0.40,   -0.6,   -0.69,
+        -0.80,   -0.6,    0,
+        -0.40,   -0.6,    0.69,
+        0.40,   -0.6,   -0.69,
+        0.80,   -0.6,    0,
+        0.40,   -0.6,    0.69 };
     //const double beginEE[]{
     //    -0.25,   -0.63,   -0.433,
     //    -0.30,   -0.63,    0,
@@ -87,12 +94,12 @@ int main_test(int argc, char *argv[])
     */
 
     Robots::WalkParam wk_param;
-    wk_param.totalCount = 1000;
-    wk_param.n = 2;
+    wk_param.totalCount = 2000;
+    wk_param.n = 3;
     wk_param.beta = 0;
     wk_param.alpha = 0;
-    wk_param.d = 0.3;
-	wk_param.h = 0.03;
+    wk_param.d = 0.5;
+	wk_param.h = 0.05;
 
     mbParam mb_param;
     mb_param.totalCount = 1000;
@@ -127,12 +134,12 @@ int main_test(int argc, char *argv[])
     rbt.SetPee(beginEE);
     //rbt.SetPee(beginPee);
 
-	//auto result = rbt.simToAdams("D:\\Lab\\Models\\Adams\\RobotEDU2\\test.cmd", Robots::walkGait, wk_param, 50);
-    auto result = rbt.simToAdams("D:\\Lab\\Models\\Adams\\RobotEDU2\\test2.cmd", quadrupedGait, qg_param, 50);
+	auto result = rbt.simToAdams("D:\\Lab\\Models\\Adams\\RobotII\\test.cmd", Robots::walkGait, wk_param, 50);
+    //auto result = rbt.simToAdams("D:\\Lab\\Models\\Adams\\RobotEDU2\\test2.cmd", quadrupedGait, qg_param, 50);
 
-	result.saveToTxt("D:\\Lab\\Models\\Adams\\RobotEDU2\\test");
+	result.saveToTxt("D:\\Lab\\Models\\Adams\\RobotII\\test");
 
-	rbt.saveXml("D:\\Lab\\Models\\Adams\\RobotEDU2\\test.xml");
+	rbt.saveXml("D:\\Lab\\Models\\Adams\\RobotII\\test.xml");
 
     /*
     Robots::WalkParam wk_param;
