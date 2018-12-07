@@ -106,7 +106,7 @@ int main_test(int argc, char *argv[])
     //mb_param.pitch = PI * 20 / 180;
     mb_param.y = 0.05;
 
-    swParam sw_param;
+    caliParam sw_param;
     sw_param.totalCount = 4000;
     sw_param.zAngle = PI * 15 / 180;
     sw_param.rDistance = 0.5;
