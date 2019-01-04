@@ -4,19 +4,22 @@
 
 /*将以下注释代码添加到xml文件*/
 /*
-            <sw default="sw_param">
-                <sw_param type="group">
-                    <totalCount abbreviation="t" type="int" default="8000"/>
-                    <xAngle abbreviation="x" type="double" default="0"/>
-                    <zAngle abbreviation="z" type="double" default="0"/>
-                    <yAngle abbreviation="y" type="double" default="0"/>
-                    <rDistance abbreviation="r" type="double" default="0.5"/>
-                    <yDistance abbreviation="d" type="double" default="-0.05"/>
-                </sw_param>
-            </sw>
+            <cl default="cl_param">
+                <cl_param type="group">
+                    <totalCount abbreviation="t" type="int" default="2000"/>
+                    <leg abbreviation="l" type="int" default="0"/>
+                    <cmd_param type="unique" default="none">
+                        <next abbreviation="n"/>
+                        <previous abbreviation="p"/>
+                        <quit abbreviation="q"/>
+                    </cmd_param>
+                </cl_param>
+            </cl>
 */
 
-#pragma once
+#ifndef CALIBRATION_H
+#define CALIBRATION_H
+
 #include <iostream>
 #include <cstring>
 #include <iomanip>
@@ -35,18 +38,26 @@
 #define PI 3.141592653589793
 #endif
 
-class CaliState
+enum class Command
+{
+    NONE = 0,
+    NEXT = 1,
+    PREVIOUS = 2,
+    QUIT = 99
+};
+
+class CaliCmd
 {
 public:
-    static CaliState& getState()
+    static CaliCmd& getCmd()
     {
-        static CaliState s;
-        return s;
+        static CaliCmd c;
+        return c;
     }
-    bool& isStopping() { return isStopping_; }
+    Command& cmd() { return cmd_; }
 private:
-    bool isStopping_{ true };
-    CaliState() = default;
+    Command cmd_{ Command::NEXT };
+    CaliCmd() = default;
 };
 
 /*gait parameters*/
@@ -58,3 +69,5 @@ struct caliParam final :public aris::server::GaitParamBase
 
 auto calibrationParse(const std::string &cmd, const std::map<std::string, std::string> &params, aris::core::Msg &msg)->void;
 auto calibrationGait(aris::dynamic::Model &model, const aris::dynamic::PlanParamBase &param_in)->int;
+
+#endif // CALIBRATION_H

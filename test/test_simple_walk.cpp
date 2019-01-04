@@ -8,8 +8,11 @@
 #include "cross_obstacle.h"
 #include "say_hello.h"
 #include "climb_stairs_v2.h"
-#include "OpenValve.h"
 #include "quadruped_gait.h"
+#include "calibration.h"
+#include "find_joint_center.h"
+#include "sine_motion.h"
+#include "load_file.h"
 
 Robots::RobotTypeI rbt;
 
@@ -37,27 +40,27 @@ int main_test(int argc, char *argv[])
 {
 
 #ifdef WIN32
-    //rbt.loadXml("C:\\Robots\\resource\\Robot_Type_I\\Robot_EDU2\\RobotEDU2_re.xml");
-    rbt.loadXml("C:\\Robots\\resource\\Robot_Type_I\\Robot_II\\Robot_II.xml");
+    rbt.loadXml("D:\\Lab\\src\\Robots\\src\\Robot_Type_I\\resource\\Robot_EDU2\\RobotEDU2_re.xml");
+    //rbt.loadXml("C:\\Robots\\resource\\Robot_Type_I\\Robot_II\\Robot_II.xml");
 #endif
 #ifdef UNIX
     rbt.loadXml("/usr/Robots/resource/Robot_Type_I/Robot_III/Robot_III.xml");
 #endif
 
-  //  const double beginEE[]{
-		//-0.30,   -0.58,   -0.52,
-		//-0.60,   -0.58,    0,
-		//-0.30,   -0.58,    0.52,
-		// 0.30,   -0.58,   -0.52,
-		// 0.60,   -0.58,    0,
-		// 0.30,   -0.58,    0.52 };
     const double beginEE[]{
-        -0.40,   -0.6,   -0.69,
-        -0.80,   -0.6,    0,
-        -0.40,   -0.6,    0.69,
-        0.40,   -0.6,   -0.69,
-        0.80,   -0.6,    0,
-        0.40,   -0.6,    0.69 };
+		-0.30,   -0.58,   -0.52,
+		-0.60,   -0.58,    0,
+		-0.30,   -0.58,    0.52,
+		 0.30,   -0.58,   -0.52,
+		 0.60,   -0.58,    0,
+		 0.30,   -0.58,    0.52 };
+    //const double beginEE[]{
+    //    -0.40,   -0.6,   -0.69,
+    //    -0.80,   -0.6,    0,
+    //    -0.40,   -0.6,    0.69,
+    //    0.40,   -0.6,   -0.69,
+    //    0.80,   -0.6,    0,
+    //    0.40,   -0.6,    0.69 };
     //const double beginEE[]{
     //    -0.25,   -0.63,   -0.433,
     //    -0.30,   -0.63,    0,
@@ -106,11 +109,11 @@ int main_test(int argc, char *argv[])
     //mb_param.pitch = PI * 20 / 180;
     mb_param.y = 0.05;
 
-    caliParam sw_param;
+    swParam sw_param;
     sw_param.totalCount = 4000;
-    sw_param.zAngle = PI * 15 / 180;
-    sw_param.rDistance = 0.5;
-    sw_param.yDistance = -0.05;
+    sw_param.xAngle = PI * 10 / 180;
+    sw_param.rDistance = 0.6042;
+    sw_param.yDistance = 0;
 
     twParam tw_param;
     tw_param.totalCount = 6000;
@@ -124,22 +127,48 @@ int main_test(int argc, char *argv[])
     shParam sh_param;
     sh_param.isForward = true;
 
+    smParam sm_param;
+    sm_param.totalCount = 6000;
+    sm_param.dir = 5;
+    sm_param.amp = PI / 180 * 10;
+    sm_param.cycle = 3;
+
     cs2Param cs2_param;
 
-    OpenValve ov_param;
-
     qgParam qg_param;
+
+    fjcParam fjc_param;
+
+    caliParam cali_param;
+
+    /*
+    //加载文本文件中的轨迹
+    lfParam lf_param;
+    lf_param.dir = 3;
+    lf_param.totalCount = 4000;
+    LoadFile load_file;
+    double data[DATA_SIZE][3];
+    aris::dynamic::dlmread("D:\\Lab\\src\\Robots\\test\\data\\data.txt", *data);
+    for (int i = 0; i < DATA_SIZE; ++i)
+    {
+        load_file.data_t[i] = data[i][0];
+        load_file.data_y[i] = 0.001 * data[i][1];
+        load_file.data_theta[i] = PI / 180 * data[i][2];
+    }
+    std::cout << "Data loaded." << std::endl;
+    */
 
     rbt.SetPeb(beginPE);
     rbt.SetPee(beginEE);
     //rbt.SetPee(beginPee);
 
-	auto result = rbt.simToAdams("D:\\Lab\\Models\\Adams\\RobotII\\test.cmd", Robots::walkGait, wk_param, 50);
-    //auto result = rbt.simToAdams("D:\\Lab\\Models\\Adams\\RobotEDU2\\test2.cmd", quadrupedGait, qg_param, 50);
+	//auto result = rbt.simToAdams("D:\\Lab\\Models\\Adams\\RobotII\\test.cmd", Robots::walkGait, wk_param, 50);
+    auto result = rbt.simToAdams("D:\\Lab\\Models\\Adams\\RobotEDU2\\sine_motion.cmd", sineMotionGait, sm_param, 50);
+    //auto result = rbt.simToAdams("D:\\Lab\\Models\\Adams\\RobotEDU2\\load_file.cmd", load_file.loadFileGait, lf_param, 50);
 
-	result.saveToTxt("D:\\Lab\\Models\\Adams\\RobotII\\test");
+	result.saveToTxt("D:\\Lab\\Models\\Adams\\RobotEDU2\\test");
 
-	rbt.saveXml("D:\\Lab\\Models\\Adams\\RobotII\\test.xml");
+	rbt.saveXml("D:\\Lab\\Models\\Adams\\RobotEDU2\\test.xml");
 
     /*
     Robots::WalkParam wk_param;

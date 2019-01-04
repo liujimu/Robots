@@ -133,7 +133,7 @@ set(INCLUDE_HEADER_FILES ${INCLUDE_HEADER_FILES} ${FULL_H})
 ################################### build tests for Robots ####################################
 enable_testing()
 
-add_executable(test_simple_walk test/test_simple_walk.cpp test/move_body.cpp test/swing.cpp test/twist_waist.cpp test/cross_obstacle.cpp test/say_hello.cpp test/climb_stairs_v2.cpp test/OpenValve.cpp test/move_body_with_force.cpp test/quadruped_gait.cpp)
+add_executable(test_simple_walk test/test_simple_walk.cpp test/move_body.cpp test/swing.cpp test/twist_waist.cpp test/cross_obstacle.cpp test/say_hello.cpp test/climb_stairs_v2.cpp test/move_body_with_force.cpp test/quadruped_gait.cpp test/find_joint_center.cpp test/calibration.cpp test/load_file.cpp test/akima_interpolation.cpp test/sine_motion.cpp)
 target_link_libraries(test_simple_walk ${ALL_LINK_LIB})
 add_test(NAME test_simple_walk COMMAND test_simple_walk)
 
