@@ -40,7 +40,7 @@ int main_test(int argc, char *argv[])
 {
 
 #ifdef WIN32
-    rbt.loadXml("D:\\Lab\\src\\Robots\\src\\Robot_Type_I\\resource\\Robot_EDU2\\RobotEDU2_re.xml");
+    rbt.loadXml("D:\\Lab\\src\\Robots\\src\\Robot_Type_I\\resource\\Robot_EDU6\\RobotEDU6_comp.xml");
     //rbt.loadXml("C:\\Robots\\resource\\Robot_Type_I\\Robot_II\\Robot_II.xml");
 #endif
 #ifdef UNIX
@@ -156,6 +156,31 @@ int main_test(int argc, char *argv[])
         load_file.data_theta[i] = PI / 180 * data[i][2];
     }
     std::cout << "Data loaded." << std::endl;
+    */
+
+    /*
+    //²âÊÔÑÅ¿É±È
+    double pee[3]{ 0.65,0.1,-0.1 };
+    rbt.pLegs[0]->SetPee(pee, rbt.pLegs[0]->base());
+    double pin[3];
+    rbt.pLegs[0]->GetPin(pin);
+    std::cout << pin[0] << "\t" << pin[1] << "\t" << pin[2] << std::endl;
+
+    double jvd[9], jvi[9];
+    rbt.pLegs[0]->GetJvd(jvd, rbt.pLegs[0]->base());
+    rbt.pLegs[0]->GetJvi(jvi, rbt.pLegs[0]->base());
+    std::cout << "Jvd" << std::endl;
+    for (int i = 0; i < 9; ++i)
+    {
+        std::cout << jvd[i] << "\t";
+    }
+    std::cout << std::endl;
+    std::cout << "Jvi" << std::endl;
+    for (int i = 0; i < 9; ++i)
+    {
+        std::cout << jvi[i] << "\t";
+    }
+    std::cout << std::endl;
     */
 
     rbt.SetPeb(beginPE);
