@@ -10,6 +10,8 @@
 #include "say_hello.h"
 #include "draw_love.h"
 #include "adjust_pee.h"
+#include "calibration_v2.h"
+#include "validation.h"
 Robots::RobotTypeI rbt;
 
 int main_test(int argc, char *argv[]);
@@ -36,6 +38,7 @@ int main_test(int argc, char *argv[])
 {
 
 #ifdef WIN32
+    //rbt.loadXml("D:\\Lab\\src\\robots_app\\resource\\Robot_XIII_comp.xml");
     rbt.loadXml("C:\\Robots\\resource\\Robot_Type_I\\Robot_XIII\\Robot_XIII.xml");
     //rbt.loadXml("C:\\Robots\\resource\\Robot_Type_I\\Robot_VIII\\Robot_VIII.xml");
 #endif
@@ -55,9 +58,9 @@ int main_test(int argc, char *argv[])
         -0.60,   -0.9,   -0.60,
         -0.80,   -0.9,    0,
         -0.60,   -0.9,    0.60,
-        0.60,   -0.9,   -0.60,
-        0.80,   -0.9,    0,
-        0.60,   -0.9,    0.60 };
+         0.60,   -0.9,   -0.60,
+         0.80,   -0.9,    0,
+         0.60,   -0.9,    0.60 };
     //const double beginEE[]{
     //    -0.70,   -0.9,   -0.60,
     //    -0.90,   -0.9,    0,
@@ -73,13 +76,14 @@ int main_test(int argc, char *argv[])
     wk_param.n = 1;
     wk_param.beta = 0;
     wk_param.alpha = 0;
-    wk_param.d = -0.3;
+    wk_param.d = -0.5;
 
     mbParam mb_param;
-    mb_param.totalCount = 1000;
-    mb_param.z = 0;
+    mb_param.totalCount = 500;
+    mb_param.x = 0.1;
+    mb_param.z = 0.2;
     mb_param.y = 0;
-    mb_param.pitch = PI * 18 / 180;
+    //mb_param.pitch = PI * 18 / 180;
 
     swParam sw_param;
     sw_param.totalCount = 4000;
@@ -107,10 +111,33 @@ int main_test(int argc, char *argv[])
     ap_param.x = -0.1;
     ap_param.z = -0.1;
 
+	caliParam2 cali_param;
+	cali_param.totalCount = 1000;
+	cali_param.waitingCount = 1000;
+	cali_param.leg_id = 0;
+
+    valiParam vali_param;
+    vali_param.totalCount = 1000;
+    vali_param.waitingCount = 1000;
+    vali_param.leg_id = 0;
+
+    //test
+    double testPeb[6]{ 0.1, -0.05, 0.05, 0.1, 0.2, 0 };
+    rbt.SetPeb(testPeb);
+    rbt.SetPee(beginEE);
+    double pin[18]{ 0 };
+    rbt.GetPin(pin);
+    for (int i = 0; i < 18; ++i)
+    {
+        std::cout << pin[i] << '\t';
+    }
+    std::cout << std::endl;
+    //
+
     rbt.SetPeb(beginPE);
     rbt.SetPee(beginEE);
 
-	auto result = rbt.simToAdams("D:\\Lab\\Models\\Adams\\RobotXIII\\test.cmd", moveBodyGait, mb_param, 50);
+	auto result = rbt.simToAdams("D:\\Lab\\Models\\Adams\\RobotXIII\\walk.cmd", Robots::walkGait, wk_param, 50);
 
 	result.saveToTxt("D:\\Lab\\Models\\Adams\\RobotXIII\\test");
 
