@@ -40,7 +40,7 @@ int main_test(int argc, char *argv[])
 {
 
 #ifdef WIN32
-    rbt.loadXml("D:\\Lab\\src\\Robots\\src\\Robot_Type_I\\resource\\Robot_EDU6\\RobotEDU6_comp.xml");
+    rbt.loadXml("D:\\Lab\\src\\Robots\\src\\Robot_Type_I\\resource\\Robot_EDU2\\RobotEDU2.xml");
     //rbt.loadXml("C:\\Robots\\resource\\Robot_Type_I\\Robot_II\\Robot_II.xml");
 #endif
 #ifdef UNIX
@@ -136,6 +136,7 @@ int main_test(int argc, char *argv[])
     cs2Param cs2_param;
 
     qgParam qg_param;
+    qg_param.n = 2;
 
     fjcParam fjc_param;
 
@@ -188,10 +189,10 @@ int main_test(int argc, char *argv[])
     //rbt.SetPee(beginPee);
 
 	//auto result = rbt.simToAdams("D:\\Lab\\Models\\Adams\\RobotII\\test.cmd", Robots::walkGait, wk_param, 50);
-    auto result = rbt.simToAdams("D:\\Lab\\Models\\Adams\\RobotEDU2\\sine_motion.cmd", sineMotionGait, sm_param, 50);
+    auto result = rbt.simToAdams("D:\\Lab\\Models\\Adams\\RobotEDU2\\quadruped_gait.cmd", quadrupedGait, qg_param, 50);
     //auto result = rbt.simToAdams("D:\\Lab\\Models\\Adams\\RobotEDU2\\load_file.cmd", load_file.loadFileGait, lf_param, 50);
 
-	result.saveToTxt("D:\\Lab\\Models\\Adams\\RobotEDU2\\test");
+	result.saveToTxt("D:\\Lab\\Models\\Adams\\RobotEDU2\\quadruped_gait");
 
 	rbt.saveXml("D:\\Lab\\Models\\Adams\\RobotEDU2\\test.xml");
 
